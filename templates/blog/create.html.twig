@@ -4,12 +4,6 @@
 
     <h1>Création d'une nouvelle figure !</h1>
 
-    <form action="" method="post">
-        <input type="text" name="name" placeholder="Nom de la figure">
-        <input type="text" name="category" placeholder="Catégorie de la figure">
-        <textarea name="content" placeholder="Contenu de l'article"></textarea>
-        <input type="text" name="image" placeholder="Image de l'article">
-        <input type="text" name="video" placeholder="Video de l'article">
-        <button type="submit">Enregistrer la figure</button>
-    </form>
+    {{ form(formFigure) }}
+
 {% endblock %}

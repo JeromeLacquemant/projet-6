@@ -39,24 +39,19 @@ class BlogController extends AbstractController
      */
     public function create(Request $request, EntityManagerInterface $manager)
     {
-        dump($request);
+        $figure = new Figure();
 
-        if($request->request->count()>0)
-        {
-            $figure = new Figure();
-            $figure    ->setName($request->request->get('name'))
-                        ->setContent($request->request->get('content'))
-                        ->setCategory($request->request->get('category'))
-                        ->setImage($request->request->get('image'))
-                        ->setVideo($request->request->get('video'))
-                        ->setCreatedAt(new \DateTime());
+        $form = $this   ->createFormBuilder($figure)
+                        ->add('name')
+                        ->add('content')
+                        ->add('category')
+                        ->add('image')
+                        ->add('video')
+                        ->getForm();
 
-            $manager->persist($figure);
-            $manager->flush();
-
-            return $this->redirectToRoute('blog_show', ['id' => $figure->getId()]);
-        }
-        return $this->render('blog/create.html.twig');
+        return $this->render('blog/create.html.twig', [
+            'formFigure' => $form->createView()
+        ]);
     }
 
     /**
