@@ -37,9 +37,16 @@ class BlogController extends AbstractController
      */
     public function show(Figure $figure)
     {
-
         return $this->render('blog/show.html.twig', [
             'figure' => $figure
         ]);
+    }
+
+    /**
+     * @Route("/blog/new", name="figure_create")
+     */
+    public function create()
+    {
+        return $this->render('blog/create.html.twig');
     }
 }
