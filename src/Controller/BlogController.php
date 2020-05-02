@@ -7,6 +7,8 @@ use App\Repository\FigureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BlogController extends AbstractController
@@ -42,11 +44,36 @@ class BlogController extends AbstractController
         $figure = new Figure();
 
         $form = $this   ->createFormBuilder($figure)
-                        ->add('name')
-                        ->add('content')
-                        ->add('category')
-                        ->add('image')
-                        ->add('video')
+                        ->add('name', TextType::class, [
+                            'attr' => [
+                                'placeholder' => "Nom de la figure",
+                                'class' => 'form-control'
+                            ]
+                        ])
+                        ->add('content', TextareaType::class, [
+                            'attr' => [
+                                'placeholder' => "Description de la figure",
+                                'class' => 'form-control'
+                            ]
+                        ])
+                        ->add('category', TextType::class, [
+                            'attr' => [
+                                'placeholder' => "Catégorie de la figure",
+                                'class' => 'form-control'
+                            ]
+                        ])
+                        ->add('image', TextType::class, [
+                            'attr' => [
+                                'placeholder' => "Image de l'article",
+                                'class' => 'form-control'
+                            ]
+                        ])
+                        ->add('video', TextType::class, [
+                            'attr' => [
+                                'placeholder' => "Vidéo de la figure",
+                                'class' => 'form-control'
+                            ]
+                        ])
                         ->getForm();
 
         return $this->render('blog/create.html.twig', [

@@ -4,6 +4,33 @@
 
     <h1>Création d'une nouvelle figure !</h1>
 
-    {{ form(formFigure) }}
+    {{ form_start(formFigure) }}
+
+    <div class="form-group">
+        <label for="">Nom</label>
+        {{ form_widget(formFigure.name) }}
+    </div>
+
+    <div class="form-group">
+        <label for="">Contenu</label>
+        {{ form_widget(formFigure.content) }}
+    </div>
+
+    <div class="form-group">
+        <label for="">Catégorie</label>
+        {{ form_widget(formFigure.category) }}
+    </div>
+
+    <div class="form-group">
+        <label for="">Image</label>
+        {{ form_widget(formFigure.image) }}
+    </div>
+
+    <div class="form-group">
+        <label for="">Vidéo</label>
+        {{ form_widget(formFigure.video) }}
+    </div>
+
+    {{ form_end(formFigure) }}
 
 {% endblock %}
