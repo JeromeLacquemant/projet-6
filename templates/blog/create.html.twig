@@ -1,36 +1,17 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme formFigure 'bootstrap_4_layout.html.twig' %}
+
 {% block body %}
 
     <h1>Création d'une nouvelle figure !</h1>
 
-    {{ form_start(formFigure) }}
+    {# We keep theses tags if we want to add some content before our form #}
+    {{ form_start(formFigure) }} 
 
-    <div class="form-group">
-        <label for="">Nom</label>
-        {{ form_widget(formFigure.name) }}
-    </div>
-
-    <div class="form-group">
-        <label for="">Contenu</label>
-        {{ form_widget(formFigure.content) }}
-    </div>
-
-    <div class="form-group">
-        <label for="">Catégorie</label>
-        {{ form_widget(formFigure.category) }}
-    </div>
-
-    <div class="form-group">
-        <label for="">Image</label>
-        {{ form_widget(formFigure.image) }}
-    </div>
-
-    <div class="form-group">
-        <label for="">Vidéo</label>
-        {{ form_widget(formFigure.video) }}
-    </div>
-
+    {{ form_widget(formFigure) }}
+    
+    {# We keep theses tags if we want to add some content before our form #}
     {{ form_end(formFigure) }}
 
 {% endblock %}

@@ -46,32 +46,27 @@ class BlogController extends AbstractController
         $form = $this   ->createFormBuilder($figure)
                         ->add('name', TextType::class, [
                             'attr' => [
-                                'placeholder' => "Nom de la figure",
-                                'class' => 'form-control'
+                                'placeholder' => "Nom de la figure"
                             ]
                         ])
                         ->add('content', TextareaType::class, [
                             'attr' => [
-                                'placeholder' => "Description de la figure",
-                                'class' => 'form-control'
+                                'placeholder' => "Description de la figure"
                             ]
                         ])
                         ->add('category', TextType::class, [
                             'attr' => [
-                                'placeholder' => "Catégorie de la figure",
-                                'class' => 'form-control'
+                                'placeholder' => "Catégorie de la figure"
                             ]
                         ])
                         ->add('image', TextType::class, [
                             'attr' => [
-                                'placeholder' => "Image de l'article",
-                                'class' => 'form-control'
+                                'placeholder' => "Image de l'article"
                             ]
                         ])
                         ->add('video', TextType::class, [
                             'attr' => [
-                                'placeholder' => "Vidéo de la figure",
-                                'class' => 'form-control'
+                                'placeholder' => "Vidéo de la figure"
                             ]
                         ])
                         ->getForm();
