@@ -12,7 +12,7 @@
             <div class="content">
                 <img src="{{ figure.image }}" alt="">
                 {{ figure.content|raw}}
-                <a href="{{ path('blog_show') }}" class="btn btn-primary">Lire la suite</a>
+                <a href="{{ path('blog_show', {'id': figure.id}) }}" class="btn btn-primary">Lire la suite</a>
             </div>
         </article>
      {% endfor %}
