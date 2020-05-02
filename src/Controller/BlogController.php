@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Figure;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BlogController extends AbstractController
 {
@@ -12,8 +13,13 @@ class BlogController extends AbstractController
      */
     public function index()
     {
+        $repo = $this->getDoctrine()->getRepository(Figure::class);
+
+        $figures = $repo->findAll();
+
         return $this->render('blog/index.html.twig', [
             'controller_name' => 'BlogController',
+            'figures' => $figures,
         ]);
     }
 

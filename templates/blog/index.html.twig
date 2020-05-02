@@ -5,38 +5,17 @@
 {% block body %}
 
 <section class="articles">
+    {% for figure in figures %}
         <article>
-            <h2>Titre de l'article</h2>
-            <div class="metadata">Ecrit le 01/05/2020 à 22:56 dans la catégorie Figure</div>
+            <h2>{{ figure.name }}</h2>
+            <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie Figure</div>
             <div class="content">
-                <img src="http://placehold.it/350x150" alt="">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem ex eaque mollitia reprehenderit numquam suscipit.</p>
-                <p>Eligendi nihil odio facilis harum possimus corporis eum ad ut, tempora reprehenderit ex, pariatur dolorem!</p>
+                <img src="{{ figure.image }}" alt="">
+                {{ figure.content|raw}}
                 <a href="{{ path('blog_show') }}" class="btn btn-primary">Lire la suite</a>
             </div>
         </article>
-
-        <article>
-            <h2>Titre de l'article</h2>
-            <div class="metadata">Ecrit le 01/05/2020 à 22:56 dans la catégorie Figure</div>
-            <div class="content">
-                <img src="http://placehold.it/350x150" alt="">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem ex eaque mollitia reprehenderit numquam suscipit.</p>
-                <p>Eligendi nihil odio facilis harum possimus corporis eum ad ut, tempora reprehenderit ex, pariatur dolorem!</p>
-                <a href="{{ path('blog_show') }}" class="btn btn-primary">Lire la suite</a>
-            </div>
-        </article>
-
-        <article>
-            <h2>Titre de l'article</h2>
-            <div class="metadata">Ecrit le 01/05/2020 à 22:56 dans la catégorie Figure</div>
-            <div class="content">
-                <img src="http://placehold.it/350x150" alt="">
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem ex eaque mollitia reprehenderit numquam suscipit.</p>
-                <p>Eligendi nihil odio facilis harum possimus corporis eum ad ut, tempora reprehenderit ex, pariatur dolorem!</p>
-                <a href="{{ path('blog_show') }}" class="btn btn-primary">Lire la suite</a>
-            </div>
-        </article>
+     {% endfor %}
 </section>
 
 {% endblock %}
