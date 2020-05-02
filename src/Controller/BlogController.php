@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Figure;
+use App\Repository\FigureRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -11,10 +12,8 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog", name="blog")
      */
-    public function index()
+    public function index(FigureRepository $repo)
     {
-        $repo = $this->getDoctrine()->getRepository(Figure::class);
-
         $figures = $repo->findAll();
 
         return $this->render('blog/index.html.twig', [
