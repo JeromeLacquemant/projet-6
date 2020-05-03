@@ -52,6 +52,12 @@ class Figure
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="figures")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category_figure;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -125,6 +131,18 @@ class Figure
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getCategoryFigure(): ?Category
+    {
+        return $this->category_figure;
+    }
+
+    public function setCategoryFigure(?Category $category_figure): self
+    {
+        $this->category_figure = $category_figure;
 
         return $this;
     }
