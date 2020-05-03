@@ -25,21 +25,25 @@ class Figure
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=5)
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, max=255)
      */
     private $category;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, max=255)
      */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, max=255)
      */
     private $video;
 
