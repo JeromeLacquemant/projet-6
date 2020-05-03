@@ -4,7 +4,13 @@
 
 {% block body %}
 
-    <h1>Création d'une nouvelle figure !</h1>
+    <h1>
+        {% if editMode %}
+            Modification d'une figure
+        {% else %}
+            Création d'une nouvelle figure !
+        {% endif %}
+    </h1>
 
     {# We keep theses tags if we want to add some content before our form #}
     {{ form_start(formFigure) }} 

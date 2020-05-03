@@ -48,14 +48,6 @@ class BlogController extends AbstractController
             $figure = new Figure();
         }
 
-        //$form = $this   ->createFormBuilder($figure)
-        //                ->add('name', TextType::class)
-        //                ->add('content', TextareaType::class)
-        //                ->add('category', TextType::class)
-        //                ->add('image', TextType::class)
-        //                ->add('video', TextType::class)
-        //                ->getForm();
-
         $form = $this->createForm(FigureType::class, $figure);
 
         $form->handleRequest($request);
@@ -73,7 +65,7 @@ class BlogController extends AbstractController
 
         return $this->render('blog/create.html.twig', [
             'formFigure' => $form->createView(),
-            'editMode' => $figure->getId() !== null
+            'editMode' => $figure->getId() !== null,
         ]);
     }
 
