@@ -52,6 +52,17 @@ class BlogController extends AbstractController
                         ->add('video', TextType::class)
                         ->getForm();
 
+        $form->handleRequest($request);
+        
+        if($form->isSubmitted() && $form->isValid()){
+            $figure->setCreatedAt(new \DateTime());
+
+            $manager->persist($figure);
+            $manager->flush();
+
+            return $this->redirectToRoute('blog_show', ['id' => $figure->getId()]);
+        }
+
         return $this->render('blog/create.html.twig', [
             'formFigure' => $form->createView()
         ]);
