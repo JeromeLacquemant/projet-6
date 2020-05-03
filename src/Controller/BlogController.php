@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Figure;
+use App\Form\FigureType;
 use App\Repository\FigureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,18 +44,19 @@ class BlogController extends AbstractController
      */
     public function form(Figure $figure = null, Request $request, EntityManagerInterface $manager)
     {
-
         if(!$figure){
             $figure = new Figure();
         }
 
-        $form = $this   ->createFormBuilder($figure)
-                        ->add('name', TextType::class)
-                        ->add('content', TextareaType::class)
-                        ->add('category', TextType::class)
-                        ->add('image', TextType::class)
-                        ->add('video', TextType::class)
-                        ->getForm();
+        //$form = $this   ->createFormBuilder($figure)
+        //                ->add('name', TextType::class)
+        //                ->add('content', TextareaType::class)
+        //                ->add('category', TextType::class)
+        //                ->add('image', TextType::class)
+        //                ->add('video', TextType::class)
+        //                ->getForm();
+
+        $form = $this->createForm(FigureType::class, $figure);
 
         $form->handleRequest($request);
         
