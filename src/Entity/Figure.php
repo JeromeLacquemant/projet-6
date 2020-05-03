@@ -19,31 +19,31 @@ class Figure
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=255)
+     * @Assert\Length(min=5, max=255, minMessage="Le nom de la figure est trop court (5 caractères minimum).")
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\Length(min=5)
+     * @Assert\Length(min=20, minMessage="La description de la figure est trop courte (20 caractères minimum).")
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=255)
+     * @Assert\Length(min=5, max=255, minMessage="La catégorie est trop courte (5 caractères minimum)")
      */
     private $category;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=255)
+     * @Assert\Length(min=5, max=255, minMessage="Le nom de l'image est trop court (5 caractères minimum).")
      */
     private $image;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=255)
+     * @Assert\Length(min=5, max=255, minMessage="Le nom de la vidéo est trop court (5 caractères minimum)")
      */
     private $video;
 
