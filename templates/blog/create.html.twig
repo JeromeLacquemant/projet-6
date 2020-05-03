@@ -15,7 +15,13 @@
     {{ form_row(formFigure.image, {'attr': {'placeholder': "Image de la figure"}}) }}
     {{ form_row(formFigure.video, {'attr': {'placeholder': "Vidéo de la figure"}}) }}
     
-    <button type="submit" class="btn btn-success">Ajouter l'article</button>
+    <button type="submit" class="btn btn-success">
+        {% if editMode %}
+            Enregistrer les modifications
+        {% else %}
+            Ajouter la figure
+        {% endif %}
+    </button>
 
     {# We keep theses tags if we want to add some content before our form #}
     {{ form_end(formFigure) }}

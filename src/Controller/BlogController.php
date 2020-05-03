@@ -39,10 +39,14 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog/new", name="figure_create")
+     * @Route("/blog/{id}/edit", name="blog_edit")
      */
-    public function create(Request $request, EntityManagerInterface $manager)
+    public function form(Figure $figure = null, Request $request, EntityManagerInterface $manager)
     {
-        $figure = new Figure();
+
+        if(!$figure){
+            $figure = new Figure();
+        }
 
         $form = $this   ->createFormBuilder($figure)
                         ->add('name', TextType::class)
@@ -55,7 +59,9 @@ class BlogController extends AbstractController
         $form->handleRequest($request);
         
         if($form->isSubmitted() && $form->isValid()){
-            $figure->setCreatedAt(new \DateTime());
+            if(!$figure->getId()){
+                $figure->setCreatedAt(new \DateTime());
+            }
 
             $manager->persist($figure);
             $manager->flush();
@@ -64,7 +70,8 @@ class BlogController extends AbstractController
         }
 
         return $this->render('blog/create.html.twig', [
-            'formFigure' => $form->createView()
+            'formFigure' => $form->createView(),
+            'editMode' => $figure->getId() !== null
         ]);
     }
 
