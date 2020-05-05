@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Figure;
+use App\Entity\Comment;
 use App\Form\FigureType;
+use App\Form\CommentType;
 use App\Repository\FigureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,8 +20,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/blog", name="blog")
      */
-    public function index(FigureRepository $repo)
-    {
+    public function index(FigureRepository $repo) {
         $figures = $repo->findAll();
 
         return $this->render('blog/index.html.twig', [
@@ -42,8 +43,7 @@ class BlogController extends AbstractController
      * @Route("/blog/new", name="figure_create")
      * @Route("/blog/{id}/edit", name="blog_edit")
      */
-    public function form(Figure $figure = null, Request $request, EntityManagerInterface $manager)
-    {
+    public function form(Figure $figure = null, Request $request, EntityManagerInterface $manager) {
         if(!$figure){
             $figure = new Figure();
         }
@@ -72,10 +72,14 @@ class BlogController extends AbstractController
     /**
      * @Route("blog/{id}", name="blog_show")
      */
-    public function show(Figure $figure)
-    {
+    public function show(Figure $figure) {
+        $comment = new Comment();
+        
+        $form = $this->createForm(CommentType::class, $comment);
+
         return $this->render('blog/show.html.twig', [
-            'figure' => $figure
+            'figure' => $figure,
+            'commentForm' => $form->createView()
         ]);
     }
 
