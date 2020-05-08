@@ -13,7 +13,8 @@ class FigureFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        $faker = \Faker\Factory::create('fr_FR');
+        //Instance of Faker
+        $faker = \Faker\Factory::create('fr_FR'); 
 
         // Creation of 5 faked categories
         for($i = 1; $i <= 5; $i++) {
@@ -28,23 +29,23 @@ class FigureFixtures extends Fixture
             for($j = 1; $j <= mt_rand(4, 6); $j++) {
                 $figure = new Figure();
 
-                $content ='<p>'.join($faker->paragraphs(5), '</p><p>').'</p>';              $content .= '</p>';
+                $content ='<p>'.join($faker->paragraphs(3), '</p><p>').'</p>';              $content .= '</p>';
 
                 $figure ->setName($faker->sentence())
+                        ->setCategory("test")
                         ->setContent($content)
-                        ->setCategory("Testtest")
                         ->setCategoryFigure($category)
-                        ->setImage("http://placehold.it/350x150")
+                        ->setImage($faker->imageUrl())
                         ->setVideo("http://placehold.it/350x150")
                         ->setCreatedAt($faker->dateTimeBetween('-6 months'));
     
                 $manager->persist($figure);
 
                 // Providing between 4 and 10 comments for each figure
-                for($k = 1; $k <= mt_rand(4, 10); $k++) {
+                for($k = 1; $k <= mt_rand(3, 7); $k++) {
                     $comment = new Comment();
 
-                    $content .='<p>'.join($faker->paragraphs(5), '</p><p>').'</p>';  
+                    $content ='<p>'.join($faker->paragraphs(1), '</p><p>').'</p>';  
 
                     $now = new \DateTime();
                     $interval = $now->diff($figure->getCreatedAt());

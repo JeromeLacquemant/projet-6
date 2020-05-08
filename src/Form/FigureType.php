@@ -13,6 +13,8 @@ class FigureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        //category_figure is a relation, so it's more complicated to manage than others fields.
+        // EntityType allows to show objects which are in the database.
         $builder
             ->add('name')
             ->add('content')
