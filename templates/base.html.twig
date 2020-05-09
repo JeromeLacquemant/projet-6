@@ -27,7 +27,7 @@
                   <a class="nav-link" href="{{ path('figure_create') }}">Créer un article</a>
                 </li>
 
-                {% if not app.user %}
+                {% if not app.user %} {# app.user is like a super global for twig #}
                   <li class="nav-item">
                     <a class="nav-link" href="{{ path('security_login') }}">Connexion</a>
                   </li>

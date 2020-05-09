@@ -15,8 +15,8 @@ class RegistrationType extends AbstractType
         $builder
             ->add('email')
             ->add('username')
-            ->add('password', PasswordType::class)
-            ->add('confirm_password', PasswordType::class)
+            ->add('password', PasswordType::class) // PasswordType allows to hide the password
+            ->add('confirm_password', PasswordType::class) // PasswordType allows to hide the password
         ;
     }
 

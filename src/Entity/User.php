@@ -15,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *  message = "L'email que vous avez indiqué est déjà utilisé."
  * )
  */
-class User implements UserInterface
+class User implements UserInterface //User Interface -> Allows ton insure that a user is unique (depending of the field)
 {
     /**
      * @ORM\Id()
