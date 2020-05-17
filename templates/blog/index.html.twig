@@ -8,6 +8,8 @@
     {% for figure in figures %}
         <article>
             <h2>{{ figure.name }}</h2>
+                <a href="{{ path('blog_edit', {'id': figure.id}) }}" class="btn btn-primary"></a>
+                <a href="{{ path('blog_edit', {'id': figure.id}) }}" class="btn btn-secondary"></a>
             <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie Figure</div>
             <div class="content">
                 <img src="{{ figure.image }}" alt="">
