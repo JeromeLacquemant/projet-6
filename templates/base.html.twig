@@ -18,13 +18,10 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                  <a class="nav-link" href="{{ path('home') }}">Home <span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="{{ path('home') }}">Accueil<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{{ path('blog') }}">Figures</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ path('figure_create') }}">Créer un article</a>
                 </li>
 
                 {% if not app.user %} {# app.user is like a super global for twig #}
@@ -33,15 +30,16 @@
                   </li>
                 {% else %}
                   <li class="nav-item">
+                    <a class="nav-link" href="{{ path('figure_create') }}">Créer un article</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ path('figure_create') }}">Modifier un article</a>
+                  </li>
+                  <li class="nav-item">
                     <a class="nav-link" href="{{ path('security_logout') }}">Déconnexion</a>
                   </li>
                 {% endif %}
               </ul>
-
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search">
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-              </form>
             </div>
           </nav>
           <!-- END OF NAVBAR -->
