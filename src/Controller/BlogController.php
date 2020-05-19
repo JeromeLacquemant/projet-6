@@ -105,7 +105,7 @@ class BlogController extends AbstractController
         $manager->remove($figure);
         $manager->flush();
 
-        self::index();
+        return $this->redirectToRoute('blog');
     }
 
 }
