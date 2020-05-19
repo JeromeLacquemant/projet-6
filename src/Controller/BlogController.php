@@ -105,7 +105,7 @@ class BlogController extends AbstractController
         $manager->remove($figure);
         $manager->flush();
 
-        return new Response('Figure supprimée');
+        self::index();
     }
 
 }
