@@ -107,4 +107,37 @@ class BlogController extends AbstractController
 
         return $this->redirectToRoute('blog');
     }
+
+    /**
+     * Liste l'ensemble des articles triés par date de publication pour une page donnée.
+     *
+     * @Route("/articles/{page}", requirements={"page" = "\d+"}, name="front_articles_index")
+     * @Method("GET")
+     * @Template("XxxYyyBundle:Front/Article:index.html.twig")
+     *
+     * @param int $page Le numéro de la page
+     *
+     * @return array
+     */
+    public function indexAction($page)
+    {
+        $nbArticlesParPage = $this->container->getParameter('front_nb_articles_par_page');
+
+        $em = $this->getDoctrine()->getManager();
+
+        $articles = $em->getRepository('XxxYyyBundle:Article')
+            ->findAllPagineEtTrie($page, $nbArticlesParPage);
+
+        $pagination = array(
+            'page' => $page,
+            'nbPages' => ceil(count($articles) / $nbArticlesParPage),
+            'nomRoute' => 'front_articles_index',
+            'paramsRoute' => array()
+        );
+
+        return array(         
+            'articles' => $articles,
+            'pagination' => $pagination
+        );
+    }
 }
