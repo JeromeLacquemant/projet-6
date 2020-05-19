@@ -9,6 +9,7 @@ use App\Form\CommentType;
 use App\Repository\FigureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -97,5 +98,13 @@ class BlogController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("blog/{id}/delete", name="blog_delete")
+     */
+    public function delete_figure(Figure $figure, EntityManagerInterface $manager) {
+        $manager->remove($figure);
+        $manager->flush();
 
+        return $this->redirectToRoute('blog');
+    }
 }
