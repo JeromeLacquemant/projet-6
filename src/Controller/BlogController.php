@@ -101,11 +101,10 @@ class BlogController extends AbstractController
     /**
      * @Route("blog/{id}/delete", name="blog_delete")
      */
-    public function delete(Figure $figure, EntityManagerInterface $manager) {
+    public function delete_figure(Figure $figure, EntityManagerInterface $manager) {
         $manager->remove($figure);
         $manager->flush();
 
         return $this->redirectToRoute('blog');
     }
-
 }
