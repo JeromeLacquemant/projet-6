@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Twig\Template;
 use App\Entity\Figure;
 use App\Entity\Comment;
 use App\Form\FigureType;
@@ -13,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -113,7 +115,6 @@ class BlogController extends AbstractController
      *
      * @Route("/articles/{page}", requirements={"page" = "\d+"}, name="front_articles_index")
      * @Method("GET")
-     * @Template("XxxYyyBundle:Front/Article:index.html.twig")
      *
      * @param int $page Le numéro de la page
      *
@@ -125,7 +126,7 @@ class BlogController extends AbstractController
 
         $em = $this->getDoctrine()->getManager();
 
-        $articles = $em->getRepository('XxxYyyBundle:Article')
+        $articles = $em->getRepository('Entity:Figure')
             ->findAllPagineEtTrie($page, $nbArticlesParPage);
 
         $pagination = array(
