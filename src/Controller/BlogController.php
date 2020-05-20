@@ -130,5 +130,10 @@ public function indexAction($page = 1)
     $iterator = $posts->getIterator();
 
     // render the view (below)
+    $limit = 5;
+    $maxPages = ceil($paginator->count() / $limit);
+    $thisPage = $page;
+    // Pass through the 3 above variables to calculate pages in twig
+    return $this->render('view.twig.html', compact('categories', 'maxPages', 'thisPage'));
 }
 }
