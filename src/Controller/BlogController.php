@@ -107,4 +107,28 @@ class BlogController extends AbstractController
 
         return $this->redirectToRoute('blog');
     }
+
+/**
+ * Controller Index action
+ *
+ * @param integer $page The current page passed via URL
+ */
+public function indexAction($page = 1)
+{
+    // ... get posts from DB...
+    // Controller Action
+    $posts = $repo->getAllPosts($currentPage); // Returns 5 posts out of 20
+
+    // You can also call the count methods (check PHPDoc for `paginate()`)
+    # Total fetched (ie: `5` posts)
+    $totalPostsReturned = $posts->getIterator()->count();
+
+    # Count of ALL posts (ie: `20` posts)
+    $totalPosts = $posts->count();
+
+    # ArrayIterator
+    $iterator = $posts->getIterator();
+
+    // render the view (below)
+}
 }
