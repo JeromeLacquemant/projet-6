@@ -108,32 +108,19 @@ class BlogController extends AbstractController
         return $this->redirectToRoute('blog');
     }
 
-/**
- * Controller Index action
- *
- * @param integer $page The current page passed via URL
- */
-public function indexAction($page = 1)
-{
-    // ... get posts from DB...
-    // Controller Action
-    $posts = $repo->getAllPosts($currentPage); // Returns 5 posts out of 20
+    /**
+     * @Route("/blog", name="blog")
+     *
+     * @param integer $page The current page passed via URL
+     */
+    public function indexAction(FigureRepository $repo, $page = 1)
+    {
+        $figures = $repo->getAllPosts(1); 
+        
+        $limit = 5;
+        $maxPages = ceil($figures->count() / $limit);
+        $thisPage = $page;
 
-    // You can also call the count methods (check PHPDoc for `paginate()`)
-    # Total fetched (ie: `5` posts)
-    $totalPostsReturned = $posts->getIterator()->count();
-
-    # Count of ALL posts (ie: `20` posts)
-    $totalPosts = $posts->count();
-
-    # ArrayIterator
-    $iterator = $posts->getIterator();
-
-    // render the view (below)
-    $limit = 5;
-    $maxPages = ceil($paginator->count() / $limit);
-    $thisPage = $page;
-    // Pass through the 3 above variables to calculate pages in twig
-    return $this->render('view.twig.html', compact('categories', 'maxPages', 'thisPage'));
-}
+        return $this->render('blog/index.html.twig', compact('figures', 'maxPages', 'thisPage'));
+    }
 }
