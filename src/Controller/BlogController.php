@@ -109,15 +109,13 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/blog", name="blog")
-     *
-     * @param integer $page The current page passed via URL
+     * @Route("list/{page}", name="blog")
      */
     public function indexAction(FigureRepository $repo, $page = 1)
     {
-        $figures = $repo->getAllPosts(1); 
-        
-        $limit = 5;
+        $figures = $repo->getAllPosts($page); 
+
+        $limit = 3;
         $maxPages = ceil($figures->count() / $limit);
         $thisPage = $page;
 

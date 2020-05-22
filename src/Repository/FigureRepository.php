@@ -22,16 +22,12 @@ class FigureRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Doctrine\ORM\Query $dql   DQL Query Object
-     * @param integer            $page  Current page (defaults to 1)
-     * @param integer            $limit The total number per page (defaults to 5)
-     *
      * @return \Doctrine\ORM\Tools\Pagination\Paginator
      */
-    public function paginate($dql, $page = 1, $limit = 2)
+    public function paginate($dql, $page = 1, $limit= 3)
     {
         $paginator = new Paginator($dql);
-        
+     
         $paginator->getQuery()
             ->setFirstResult($limit * ($page - 1)) // Offset
             ->setMaxResults($limit); // Limit
@@ -40,18 +36,17 @@ class FigureRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param integer $currentPage The current page (passed from controller)
-     *
      * @return \Doctrine\ORM\Tools\Pagination\Paginator
      */
-    public function getAllPosts($currentPage = 1)
+    public function getAllPosts($page = 1)
     {
+        
         $query = $this->createQueryBuilder('figure')
             ->orderBy('figure.createdAt', 'DESC')
             ->getQuery();
 
-        $paginator = $this->paginate($query, $currentPage);
-
+        $paginator = $this->paginate($query, $page);
+     
         return $paginator;
     }
 
