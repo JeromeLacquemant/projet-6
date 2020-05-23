@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Form\FigureType;
 use App\Form\CommentType;
 use App\Repository\FigureRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,9 +60,9 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("blog/{id}", name="blog_show")
+     * @Route("blog/{id}/{page}", name="blog_show")
      */
-    public function show(Figure $figure, Request $request, EntityManagerInterface $manager) {
+    public function showAction($id, Figure $figure, CommentRepository $repo, $page = 1, Request $request, EntityManagerInterface $manager) {
         $comment = new Comment();
         
         $form = $this->createForm(CommentType::class, $comment);
@@ -80,10 +81,26 @@ class BlogController extends AbstractController
             ]);
         }
 
+        //$comments = $repo->findBy(
+        //    array('figure' => $id), 
+        //    array('createdAt'=>'desc'),
+        //    3,
+        //    0
+        //); 
+
+        $comments = $repo->getCommentsById($page); 
+
+        $limit = 3;
+        $maxPages = ceil(count($comments) / $limit);
+        $thisPage = $page;
+
         return $this->render('blog/show.html.twig', [
+            'maxPages' => $maxPages,
+            'thisPage' => $thisPage,
+            'comments' => $comments,
             'figure' => $figure,
             'commentForm' => $form->createView()
-        ]);
+        ]); 
     }
 
     /**
