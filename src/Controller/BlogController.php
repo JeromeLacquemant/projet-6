@@ -81,14 +81,7 @@ class BlogController extends AbstractController
             ]);
         }
 
-        //$comments = $repo->findBy(
-        //    array('figure' => $id), 
-        //    array('createdAt'=>'desc'),
-        //    3,
-        //    0
-        //); 
-
-        $comments = $repo->getCommentsById($page); 
+        $comments = $repo->getCommentsById($page, $id); 
 
         $limit = 3;
         $maxPages = ceil(count($comments) / $limit);

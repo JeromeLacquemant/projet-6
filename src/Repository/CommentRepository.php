@@ -38,11 +38,13 @@ class CommentRepository extends ServiceEntityRepository
     /**
      * @return \Doctrine\ORM\Tools\Pagination\Paginator
      */
-    public function getCommentsById($page = 1)
+    public function getCommentsById($page = 1, $id)
     {
         
         $query = $this->createQueryBuilder('comment')
-            ->where('comment.figure = 78')
+            ->join('comment.figure', 'figure')
+            ->where('comment.figure = :parameter')
+            ->setParameter('parameter', $id)
             ->orderBy('comment.createdAt', 'DESC')
             ->getQuery();
 
