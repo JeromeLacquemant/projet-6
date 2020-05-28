@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Figure;
+use App\Entity\Images;
 use App\Entity\Comment;
 use App\Form\FigureType;
 use App\Form\CommentType;
@@ -55,16 +56,23 @@ class BlogController extends AbstractController
         
         if($form->isSubmitted() && $form->isValid()){
             // We recover transmitted images
-            $images = $form->get('image')->getData();
+            $images = $form->get('images')->getData();
+
             // Loop on images
             foreach($images as $image){
                 // Generation of a new name of file
                 $file = md5(uniqid()) . '.' . $image->guessExtension();
+
                 //Copy of the file in uploads file
                 $image->move(
                     $this->getParameter('images_directory'),
                     $file
                 );
+
+                // We stock image in the database with its name
+                $img = new Images();
+                $img->setName($file);
+                $figure->addImage($img);
             }
 
             if(!$figure->getId()){

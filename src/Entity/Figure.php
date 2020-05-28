@@ -66,7 +66,8 @@ class Figure
     private $comments;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Images", mappedBy="figures", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Images", mappedBy="figures", 
+     * orphanRemoval=true, cascade={"persist"})
      */
     private $images;
 
