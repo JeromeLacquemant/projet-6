@@ -54,6 +54,19 @@ class BlogController extends AbstractController
         $form->handleRequest($request);
         
         if($form->isSubmitted() && $form->isValid()){
+            // We recover transmitted images
+            $images = $form->get('image')->getData();
+            // Loop on images
+            foreach($images as $image){
+                // Generation of a new name of file
+                $file = md5(uniqid()) . '.' . $image->guessExtension();
+                //Copy of the file in uploads file
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $file
+                );
+            }
+
             if(!$figure->getId()){
                 $figure->setCreatedAt(new \DateTime());
             }
