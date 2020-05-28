@@ -22,7 +22,10 @@
             {% for images in figure.images %}
                 <img src="{{ asset('/uploads/' ~ images.name) }}" alt="Image" width="150">
             {% endfor %}
+
+            {{ figure.video|raw }}
             {{ figure.content|raw}}
+            
         </div>
     </article>
 
