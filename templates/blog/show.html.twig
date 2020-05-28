@@ -19,7 +19,7 @@
             {% endif %}
         <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie{{ figure.categoryfigure.title }}</div>
         <div class="content">
-            <img src="{{ figure.image }}" alt="">
+            <img src="{{ figure.images }}" alt="">
             {{ figure.content|raw}}
         </div>
     </article>

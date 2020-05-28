@@ -39,12 +39,6 @@ class Figure
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=255, minMessage="Le nom de l'image est trop court (5 caractères minimum).")
-     */
-    private $image;
-
-    /**
-     * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=5, max=255, minMessage="Le nom de la vidéo est trop court (5 caractères minimum)")
      */
     private $video;
