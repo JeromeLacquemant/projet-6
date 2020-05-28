@@ -23,9 +23,7 @@ class FigureType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'title'
             ])
-            ->add('image', [
-                'multiple' => true
-            ])
+            ->add('image')
             ->add('video')
         ;
     }
