@@ -12,6 +12,9 @@
         {% endif %}
     </h1>
 
+
+
+
     {# We keep theses tags if we want to add some content before our form #}
     {{ form_start(formFigure) }} 
 
@@ -19,9 +22,18 @@
     {{ form_row(formFigure.content, {'attr': {'placeholder': "Description de la figure"}}) }}
     {{ form_row(formFigure.category, {'attr': {'placeholder': "Catégorie de la figure"}}) }}
     {{ form_row(formFigure.category_figure) }}
-    {{ form_row(formFigure.image, {'attr': {'placeholder': "Image de la figure"}}) }}
+
+    <h2>Images</h2>
+    {% for images in figure.images %}
+    <div>
+        <img src="{{ asset('/uploads/' ~ images.name) }}" alt="Image" width="150">
+        <a href = "{{ path('figure_delete_image', {id: images.id}) }}"
+        data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>
+    </div>
+    {% endfor %}
+
     {{ form_row(formFigure.video, {'attr': {'placeholder': "Vidéo de la figure"}}) }}
-    
+
     <button type="submit" class="btn btn-success">
         {% if editMode %}
             Enregistrer les modifications
@@ -33,4 +45,8 @@
     {# We keep theses tags if we want to add some content before our form #}
     {{ form_end(formFigure) }}
 
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/image.js') }}"></script>
 {% endblock %}

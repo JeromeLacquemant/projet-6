@@ -39,12 +39,6 @@ class Figure
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=255, minMessage="Le nom de l'image est trop court (5 caractères minimum).")
-     */
-    private $image;
-
-    /**
-     * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=5, max=255, minMessage="Le nom de la vidéo est trop court (5 caractères minimum)")
      */
     private $video;
@@ -65,9 +59,16 @@ class Figure
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Images", mappedBy="figures", 
+     * orphanRemoval=true, cascade={"persist"})
+     */
+    private $images;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->images = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -184,6 +185,37 @@ class Figure
             // set the owning side to null (unless already changed)
             if ($comment->getFigure() === $this) {
                 $comment->setFigure(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Images[]
+     */
+    public function getImages(): Collection
+    {
+        return $this->images;
+    }
+
+    public function addImage(Images $image): self
+    {
+        if (!$this->images->contains($image)) {
+            $this->images[] = $image;
+            $image->setFigures($this);
+        }
+
+        return $this;
+    }
+
+    public function removeImage(Images $image): self
+    {
+        if ($this->images->contains($image)) {
+            $this->images->removeElement($image);
+            // set the owning side to null (unless already changed)
+            if ($image->getFigures() === $this) {
+                $image->setFigures(null);
             }
         }
 

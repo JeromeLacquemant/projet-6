@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Figure;
+use App\Entity\Images;
 use App\Entity\Comment;
 use App\Form\FigureType;
 use App\Form\CommentType;
@@ -11,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -54,6 +56,26 @@ class BlogController extends AbstractController
         $form->handleRequest($request);
         
         if($form->isSubmitted() && $form->isValid()){
+            // We recover transmitted images
+            $images = $form->get('images')->getData();
+
+            // Loop on images
+            foreach($images as $image){
+                // Generation of a new name of file
+                $file = md5(uniqid()) . '.' . $image->guessExtension();
+
+                //Copy of the file in uploads file
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $file
+                );
+
+                // We stock image in the database with its name
+                $img = new Images();
+                $img->setName($file);
+                $figure->addImage($img);
+            }
+
             if(!$figure->getId()){
                 $figure->setCreatedAt(new \DateTime());
             }
@@ -67,6 +89,7 @@ class BlogController extends AbstractController
         return $this->render('blog/create.html.twig', [
             'formFigure' => $form->createView(),
             'editMode' => $figure->getId() !== null,
+            'figure' => $figure,
         ]);
     }
 
@@ -106,5 +129,30 @@ class BlogController extends AbstractController
         $manager->flush();
 
         return $this->redirectToRoute('blog');
+    }
+
+    /**
+     * @Route("/delete/image/{id}", name="figure_delete_image", methods={"DELETE"})
+     */
+    public function deleteImage(Images $image, Request $request) {
+        $data = json_decode($request->getContent(), true);
+
+        // We check if the token is valid
+        if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
+            // In this case we need the name to remove it from the folder uploads.
+            $name = $image->getName(); 
+            // We remove the file
+            unlink($this->getParameter('images_directory').'/'.$name);
+            // We remove from the database
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($image);
+            $em->flush();
+
+            //Response in json
+            return new JsonResponse(['success' => 1]);
+        
+        }else {
+            return new JsonResponse(['error' => 'Token Invalide'], 400);
+        }
     }
 }
