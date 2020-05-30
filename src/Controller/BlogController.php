@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -139,9 +140,9 @@ class BlogController extends AbstractController
         // We check if the token is valid
         if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
             // In this case we need the name to remove it from the folder uploads.
-            $name = $image->getname(); 
+            $name = $image->getName(); 
             // We remove the file
-            unlink($this->getparameter('image_directory').'/'.$nom);
+            unlink($this->getParameter('images_directory').'/'.$name);
             // We remove from the database
             $em = $this->getDoctrine()->getManager();
             $em->remove($image);
