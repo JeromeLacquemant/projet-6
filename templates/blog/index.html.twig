@@ -1,12 +1,18 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}{% endblock %}
 
 {% block body %}
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
-<section class="articles">
+<section id="boxs">
+    <div class="container">
+        <div class="row">
+
     {% for figure in figures %}
-        <article>
+        <div class="col-md-4 box">
+            <div class="content">
             <h2>{{ figure.name }}</h2>
                 {% if app.user %} 
                     <a href="{{ path('blog_edit', {'id': figure.id}) }}" class="btn btn-success" onclick="return window.confirm(`Êtes vous sur de vouloir modifier cet article ?`)">
@@ -23,15 +29,44 @@
                     </a>
                 {% endif %}
             <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie Figure</div>
-            <div class="content">
+            <div class="img-container">
                     {% for images in figure.images %}
-                        <img src="{{ asset('/uploads/' ~ images.name) }}" alt="Image" width="150">
+                        <img src="{{ asset('/uploads/' ~ images.name) }}" alt="Image" width="150" class="lazy img-fluid">
                     {% endfor %}
                 {{ figure.content|raw}}
                 <a href="{{ path('blog_show', {'id': figure.id}) }}" class="btn btn-primary">Lire la suite</a>
             </div>
-        </article>
+        </div>
+        </div>
      {% endfor %}
+    </div>
+</div>
+
+ <div class="col-md-12 text-center">
+    <div class="button">
+        <button id="showMore"><span>Load More</span></button>
+    </div>
+</div> 
+
 </section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+<script>
+    $("#showMore").click(function(){
+        $("#boxs .box:hidden").slice(0,3).slideDown();
+        if($("#boxs .box:hidden").length == 0){
+            $("#showMore").fadeOut("slow");
+        }
+    });
+</script>
+
+<script>
+    $(function(){
+        $("img.lazy").lazyload();
+    });
+</script>
+
 
 {% endblock %}
