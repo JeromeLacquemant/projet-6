@@ -128,4 +128,29 @@ class BlogController extends AbstractController
 
         return $this->redirectToRoute('blog');
     }
+
+    /**
+     * @Route("/delete/image/{id}", name="figure_delete_image", methods={"DELETE"})
+     */
+    public function deleteImage(Images $image, Request $request) {
+        $data = json_decode($request->getContent(), true);
+
+        // We check if the token is valid
+        if($this->isCsrfTokenValid('delete'.$image->getId(), $data['_token'])){
+            // In this case we need the name to remove it from the folder uploads.
+            $name = $image->getname(); 
+            // We remove the file
+            unlink($this->getparameter('image_directory').'/'.$nom);
+            // We remove from the database
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($image);
+            $em->flush();
+
+            //Response in json
+            return new JsonResponse(['success' => 1]);
+        
+        }else {
+            return new JsonResponse(['error' => 'Token Invalide'], 400);
+        }
+    }
 }
