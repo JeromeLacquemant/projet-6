@@ -24,6 +24,8 @@
     {{ form_row(formFigure.category_figure) }}
 
     <h2>Images</h2>
+    {{ form_row(formFigure.images, {'attr': {'placeholder': "Nouvelle image de la figure"}}) }}
+
     {% for images in figure.images %}
     <div>
         <img src="{{ asset('/uploads/' ~ images.name) }}" alt="Image" width="150">
@@ -32,6 +34,7 @@
     </div>
     {% endfor %}
 
+    <h2>Videos</h2>
     {{ form_row(formFigure.video, {'attr': {'placeholder': "Vidéo de la figure"}}) }}
 
     <button type="submit" class="btn btn-success">
