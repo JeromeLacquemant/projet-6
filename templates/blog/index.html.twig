@@ -44,7 +44,7 @@
 
  <div class="col-md-12 text-center">
     <div class="button">
-        <button id="showMore"><span>Load More</span></button>
+        <button id="loadMore"><span>Load More</span></button>
     </div>
 </div> 
 
@@ -54,10 +54,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
 
 <script>
-    $("#showMore").click(function(){
+    $("#loadMore").click(function(){
         $("#boxs .box:hidden").slice(0,3).slideDown();
         if($("#boxs .box:hidden").length == 0){
-            $("#showMore").fadeOut("slow");
+            $("#loadMore").fadeOut("slow");
         }
     });
 </script>
