@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <article>
         <h2>{{ figure.name }}</h2>
             {% if app.user %} 
@@ -29,7 +30,7 @@
         </div>
     </article>
 
-    <section id="commentaire">
+    <section id="boxs">
         <h1>{{ figure.comments|length}} Commentaires : </h1>
         {% for comment in figure.comments %}
             <div class="comment">
@@ -43,11 +44,17 @@
                 </div>
             </div>
         {% endfor %}
-
+        <div class="col-md-12 text-center">
+            <div class="button">
+                <button id="showMore"><span>Load More</span></button>
+            </div>
+        </div> 
         {% if app.user %}
         {{ form_start(commentForm) }}
         {{ form_row(commentForm.author, {'attr': {'placeholder': "Votre nom"}}) }}
         {{ form_row(commentForm.content, {'attr': {'placeholder': "Votre commentaire"}}) }}
+
+
 
         <button type="submit" class="btn btn-success">Commenter !</button>
         {{ form_end(commentForm) }}
@@ -57,4 +64,22 @@
             <a href="{{ path('security_login') }}" class="btn btn-primary">Connexion </a>
         {% endif %}
     </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+
+<script>
+    $("#showMore").click(function(){
+        $("#boxs .box:hidden").slice(0,3).slideDown();
+        if($("#boxs .box:hidden").length == 0){
+            $("#showMore").fadeOut("slow");
+        }
+    });
+</script>
+
+<script>
+    $(function(){
+        $("img.lazy").lazyload();
+    });
+</script>
 {% endblock %}
