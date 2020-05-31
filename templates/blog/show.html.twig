@@ -65,23 +65,6 @@
             <h2>Vous ne pouvez pas commenter si vous n'êtes pas connecté !</h2>
             <a href="{{ path('security_login') }}" class="btn btn-primary">Connexion </a>
         {% endif %}
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
         
-        <script>
-            $("#showMore").click(function(){
-                $("#boxs .box:hidden").slice(0,3).slideDown();
-                if($("#boxs .box:hidden").length == 0){
-                    $("#showMore").fadeOut("slow");
-                }
-            });
-        </script>
-        
-        <script>
-            $(function(){
-                $("img.lazy").lazyload();
-            });
-        </script>
     </section>
 {% endblock %}
