@@ -65,6 +65,12 @@ class Figure
      */
     private $images;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="authors")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $figure_user;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
@@ -218,6 +224,18 @@ class Figure
                 $image->setFigures(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFigureUser(): ?User
+    {
+        return $this->figure_user;
+    }
+
+    public function setFigureUser(?User $figure_user): self
+    {
+        $this->comment_user = $comment_user;
 
         return $this;
     }

@@ -43,18 +43,6 @@ class Comment
         return $this->id;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
-
-    public function setAuthor(string $author): self
-    {
-        $this->author = $author;
-
-        return $this;
-    }
-
     public function getContent(): ?string
     {
         return $this->content;
