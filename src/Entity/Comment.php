@@ -37,6 +37,12 @@ class Comment
      */
     private $figure;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $comment_user;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +92,18 @@ class Comment
     public function setFigure(?Figure $figure): self
     {
         $this->figure = $figure;
+
+        return $this;
+    }
+
+    public function getCommentUser(): ?User
+    {
+        return $this->comment_user;
+    }
+
+    public function setCommentUser(?User $comment_user): self
+    {
+        $this->comment_user = $comment_figure;
 
         return $this;
     }

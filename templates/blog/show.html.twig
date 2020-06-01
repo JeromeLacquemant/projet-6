@@ -36,6 +36,9 @@
             <div class="box">
                 <div class="row">
                     <div class="col-3">
+                        {{ comment.commentuser.image}}
+                    </div>
+                    <div class="col-3">
                         {{ comment.author }} (<small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small>)
                     </div>
                     <div class="col">

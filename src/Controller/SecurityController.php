@@ -35,7 +35,7 @@ class SecurityController extends AbstractController
 
             $user->setImage($file);
 
-
+            
             // Management of the password
             $hash = $encoder->encodePassword($user, $user->getPassword());
 
