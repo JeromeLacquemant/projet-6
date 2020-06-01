@@ -57,6 +57,11 @@ class User implements UserInterface //User Interface -> Allows ton insure that a
      */
     private $users;
 
+     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Figure", mappedBy="figure_user")
+     */
+    private $authors;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -120,7 +125,7 @@ class User implements UserInterface //User Interface -> Allows ton insure that a
        /**
      * @return Collection|Comment[]
      */
-    public function getUsers(): Collection
+    public function getUsers()
     {
         return $this->users;
     }
@@ -142,6 +147,37 @@ class User implements UserInterface //User Interface -> Allows ton insure that a
             // set the owning side to null (unless already changed)
             if ($user->getCategoryUser() === $this) {
                 $user->setCategoryUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getAuthors()
+    {
+        return $this->authors;
+    }
+
+    public function addAuthor(User $author): self
+    {
+        if (!$this->authors->contains($author)) {
+            $this->authors[] = $author;
+            $author->setCategoryAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAuthor(User $author): self
+    {
+        if ($this->authors->contains($author)) {
+            $this->authors->removeElement($author);
+            // set the owning side to null (unless already changed)
+            if ($author->getCategoryAuthor() === $this) {
+                $author->setCategoryAuthor(null);
             }
         }
 
