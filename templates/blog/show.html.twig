@@ -39,7 +39,7 @@
                         {{ comment.commentuser.image}}
                     </div>
                     <div class="col-3">
-                        {{ comment.author }} (<small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small>)
+                        {{ comment.commentuser.username }} (<small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small>)
                     </div>
                     <div class="col">
                         {{ comment.content|raw }}
