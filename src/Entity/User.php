@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -46,6 +47,16 @@ class User implements UserInterface //User Interface -> Allows ton insure that a
      */
     public $confirm_password;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="comment_user")
+     */
+    private $users;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,12 +97,54 @@ class User implements UserInterface //User Interface -> Allows ton insure that a
 
         return $this;
     }
+    
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
 
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
     public function eraseCredentials() {}
 
     public function getSalt() {}
 
     public function getRoles() {
         return['ROLE_USER'];
+    }
+
+       /**
+     * @return Collection|Comment[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setCategoryUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getCategoryUser() === $this) {
+                $user->setCategoryUser(null);
+            }
+        }
+
+        return $this;
     }
 }

@@ -36,7 +36,10 @@
             <div class="box">
                 <div class="row">
                     <div class="col-3">
-                        {{ comment.author }} (<small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small>)
+                        <img src="{{ asset('/uploads/user' ~ comment.commentuser.image) }}" alt="Image" width="20">
+                    </div>
+                    <div class="col-3">
+                        {{ comment.commentuser.username }} (<small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small>)
                     </div>
                     <div class="col">
                         {{ comment.content|raw }}
@@ -53,7 +56,6 @@
         
         {% if app.user %}
         {{ form_start(commentForm) }}
-        {{ form_row(commentForm.author, {'attr': {'placeholder': "Votre nom"}}) }}
         {{ form_row(commentForm.content, {'attr': {'placeholder': "Votre commentaire"}}) }}
 
         <button type="submit" class="btn btn-success">Commenter !</button>

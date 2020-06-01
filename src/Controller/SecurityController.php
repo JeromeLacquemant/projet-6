@@ -23,6 +23,21 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
+            // Management of the profil photo
+            $image = $form->get('image')->getData();
+            
+            $username = $user->getUsername();
+            $file = 'photo-profil-user-' . $username . '.' . $image->guessExtension();
+
+            $image->move(
+                $this->getParameter('profil_photo_directory'),
+                $file
+            );
+
+            $user->setImage($file);
+
+
+            // Management of the password
             $hash = $encoder->encodePassword($user, $user->getPassword());
 
             $user->setPassword($hash);

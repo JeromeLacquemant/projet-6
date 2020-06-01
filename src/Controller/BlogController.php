@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Figure;
 use App\Entity\Images;
 use App\Entity\Comment;
@@ -62,7 +63,7 @@ class BlogController extends AbstractController
             // Loop on images
             foreach($images as $image){
                 // Generation of a new name of file
-                $file = md5(uniqid()) . '.' . $image->guessExtension();
+                $file = uniqid() . '.' . $image->guessExtension();
 
                 //Copy of the file in uploads file
                 $image->move(
