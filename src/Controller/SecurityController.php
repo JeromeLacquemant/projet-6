@@ -26,14 +26,14 @@ class SecurityController extends AbstractController
             // Management of the profil photo
             $image = $form->get('image')->getData();
 
-            $file = md5(uniqid()) . '.' . $image->guessExtension();
+            $file = uniqid() . '.' . $image->guessExtension();
 
             $image->move(
                 $this->getParameter('profil_photo_directory'),
                 $file
             );
 
-            $user->setImage($image);
+            $user->setImage($file);
 
 
             // Management of the password
