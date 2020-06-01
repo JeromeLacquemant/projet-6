@@ -46,6 +46,11 @@ class User implements UserInterface //User Interface -> Allows ton insure that a
      */
     public $confirm_password;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,7 +91,18 @@ class User implements UserInterface //User Interface -> Allows ton insure that a
 
         return $this;
     }
+    
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
 
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
     public function eraseCredentials() {}
 
     public function getSalt() {}
