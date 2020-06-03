@@ -29,7 +29,12 @@ class FigureType extends AbstractType
                 'mapped' => false,
                 'required' => false
             ])
-            ->add('video')
+            ->add('videos', FileType::class, [
+                'label' => false,
+                'multiple' => true,
+                'mapped' => false,
+                'required' => false
+            ])
         ;
     }
 
