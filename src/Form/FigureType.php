@@ -19,7 +19,6 @@ class FigureType extends AbstractType
         $builder
             ->add('name')
             ->add('content')
-            ->add('category')
             ->add('category_figure', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'title'
