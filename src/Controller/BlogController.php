@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Figure;
 use App\Entity\Images;
+use App\Entity\Videos;
 use App\Entity\Comment;
 use App\Form\FigureType;
 use App\Form\CommentType;

@@ -25,7 +25,10 @@
                 <img src="{{ asset('/uploads/' ~ images.name) }}" alt="Image" width="150">
             {% endfor %}
 
-            {{ figure.video|raw }}
+            {% for videos in figure.videos %}
+                {{ videos.name|raw }}
+            {% endfor %}
+
             {{ figure.content|raw}}
             
         </div>
