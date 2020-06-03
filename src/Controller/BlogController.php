@@ -77,6 +77,16 @@ class BlogController extends AbstractController
                 $figure->addImage($img);
             }
 
+             // We recover transmitted videos
+             $videos = $form->get('videos')->getData();
+
+             // Loop on videos
+             foreach($videos as $video){
+                // We stock video in the database with its name
+                $vid = new Videos();
+                $figure->addVideo($vid);
+            }
+
             if(!$figure->getId()){
                 $figure->setCreatedAt(new \DateTime());
             }
