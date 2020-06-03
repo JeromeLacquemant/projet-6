@@ -33,12 +33,6 @@ class Figure
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=255, minMessage="La catégorie est trop courte (5 caractères minimum)")
-     */
-    private $category;
-
-    /**
-     * @ORM\Column(type="string", length=255)
      * @Assert\Length(min=5, max=255, minMessage="Le nom de la vidéo est trop court (5 caractères minimum)")
      */
     private $video;
@@ -102,18 +96,6 @@ class Figure
     public function setContent(string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): self
-    {
-        $this->category = $category;
 
         return $this;
     }
