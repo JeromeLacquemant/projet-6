@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class FigureType extends AbstractType
 {
@@ -30,12 +31,7 @@ class FigureType extends AbstractType
                 'mapped' => false,
                 'required' => false
             ])
-            ->add('videos', FileType::class, [
-                'label' => false,
-                'multiple' => true,
-                'mapped' => false,
-                'required' => false
-            ])
+            ->add('videos', TextType::class)
         ;
     }
 
