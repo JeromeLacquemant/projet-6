@@ -27,7 +27,7 @@
 
     {% for images in figure.images %}
     <div>
-        <img src="{{ asset('/uploads/' ~ images.name) }}" alt="Image" width="150">
+        <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150">
         <a href = "{{ path('figure_delete_image', {id: images.id}) }}"
         data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>
     </div>
