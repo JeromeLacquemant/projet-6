@@ -52,10 +52,10 @@ class BlogController extends AbstractController
         if(!$figure){
             $figure = new Figure();
         }
-        $vid = new Videos();
-        $vid->setName('Daniel');
+
+
        
-        $figure->addVideo($vid);
+        
         
         $form = $this->createForm(FigureType::class, $figure);
 
@@ -82,7 +82,12 @@ class BlogController extends AbstractController
                 $figure->addImage($img);
             }
             
-
+            $videos = $form->get('videos')->getData();
+            foreach ($videos as $video) {
+                $vid = new Videos();
+           
+            $figure->addVideo($video);
+            }
 
             if(!$figure->getId()){
                 $figure->setCreatedAt(new \DateTime());
