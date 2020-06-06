@@ -85,8 +85,7 @@ class BlogController extends AbstractController
             $videos = $form->get('videos')->getData();
             foreach ($videos as $video) {
                 $vid = new Videos();
-           
-            $figure->addVideo($video);
+                $figure->addVideo($video);
             }
 
             if(!$figure->getId()){

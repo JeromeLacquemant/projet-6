@@ -43,11 +43,6 @@ class FigureType extends AbstractType
                 'allow_add' => true,
                 'mapped' => false
             ])
-            ->add('save', SubmitType::class, [
-                'attr' => [
-                    'class' => 'btn btn-success'
-                ]
-            ])
         ;
     }
 
