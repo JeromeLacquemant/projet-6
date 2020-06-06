@@ -52,7 +52,11 @@ class BlogController extends AbstractController
         if(!$figure){
             $figure = new Figure();
         }
-
+        $vid = new Videos();
+        $vid->setName('Daniel');
+       
+        $figure->addVideo($vid);
+        
         $form = $this->createForm(FigureType::class, $figure);
 
         $form->handleRequest($request);
@@ -77,16 +81,8 @@ class BlogController extends AbstractController
                 $img->setName($file);
                 $figure->addImage($img);
             }
+            
 
-             // We recover transmitted videos
-             $videos = $form->get('videos')->getData();
-
-             // Loop on videos
-             foreach($videos as $video){
-                // We stock video in the database with its name
-                $vid = new Videos();
-                $figure->addVideo($vid);
-            }
 
             if(!$figure->getId()){
                 $figure->setCreatedAt(new \DateTime());

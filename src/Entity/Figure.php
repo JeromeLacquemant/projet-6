@@ -60,7 +60,8 @@ class Figure
     private $figure_user;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Videos", mappedBy="figures", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Videos", mappedBy="figures", 
+     * orphanRemoval=true, cascade={"persist"})
      */
     private $videos;
 

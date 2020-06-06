@@ -12,9 +12,6 @@
         {% endif %}
     </h1>
 
-
-
-
     {# We keep theses tags if we want to add some content before our form #}
     {{ form_start(formFigure) }} 
 
@@ -34,11 +31,11 @@
     {% endfor %}
 
     <h2>Videos</h2>
-    {{ form_row(formFigure.videos, {'attr': {'placeholder': "Nouvelle vidéo de la figure"}}) }}
-
+    <div class="col-sm-8 col-sm-offset-2" id="video_list" data-prototype="{{ form_widget(formFigure.videos.vars.prototype)|e('html_attr') }}">
     {% for videos in figure.videos %}
         {{ videos.name|raw }}
     {% endfor %}
+    </div>
 
     <button type="submit" class="btn btn-success">
         {% if editMode %}
@@ -51,8 +48,16 @@
     {# We keep theses tags if we want to add some content before our form #}
     {{ form_end(formFigure) }}
 
+    <script 
+src="https://code.jquery.com/jquery-2.2.4.min.js"
+integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+crossorigin="anonymous"></script>
+
 {% endblock %}
+
+
 
 {% block javascripts %}
     <script src="{{ asset('js/image.js') }}"></script>
+    <script src="{{ asset('js/video.js') }}"></script>
 {% endblock %}

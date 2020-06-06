@@ -32,7 +32,7 @@
             <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie Figure</div>
             <div class="img-container">
                     {% for images in figure.images %}
-                        <img src="{{ asset('/uploads/figures' ~ images.name) }}" alt="Image" width="150" class="lazy img-fluid">
+                        <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150" class="lazy img-fluid">
                     {% endfor %}
                 {{ figure.content|raw}}
                 <a href="{{ path('blog_show', {'id': figure.id}) }}" class="btn btn-primary">Lire la suite</a>
