@@ -17,7 +17,7 @@ $(document).ready(function () {
         // which means we pass the panel to the addRemoveButton function
         // inside the function we create a footer and remove link and append them to the panel
         // more informations in the function inside
-        addRemoveButton($(this));
+        addRemoveButtonImage($(this));
     });
     // handle the click event for addNewItem
     $addNewImage.click(function (e) {
@@ -61,15 +61,15 @@ function addNewFormImage() {
 
 /**
  * adds a remove button to the panel that is passed in the parameter
- * @param $panel
+ * @param $panelImage
  */
-function addRemoveButton ($panel) {
+function addRemoveButtonImage ($panel) {
     // create remove button
-    var $removeButton = $('<a href="#" class="btn btn-danger">Remove</a>');
+    var $removeButtonImage = $('<a href="#" class="btn btn-danger">Remove Image</a>');
     // appending the removebutton to the panel footer
-    var $panelFooter = $('<div class="panel-footer"></div>').append($removeButton);
+    var $panelFooterImage = $('<div class="panel-footer"></div>').append($removeButtonImage);
     // handle the click event of the remove button
-    $removeButton.click(function (e) {
+    $removeButtonImage.click(function (e) {
         e.preventDefault();
         // gets the parent of the button that we clicked on "the panel" and animates it
         // after the animation is done the element (the panel) is removed from the html
@@ -78,5 +78,5 @@ function addRemoveButton ($panel) {
         })
     });
     // append the footer to the panel
-    $panel.append($panelFooter);
+    $panelImage.append($panelFooterImage);
 }

@@ -13,12 +13,16 @@ use App\Repository\FigureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class BlogController extends AbstractController
 {
@@ -53,10 +57,6 @@ class BlogController extends AbstractController
             $figure = new Figure();
         }
 
-
-       
-        
-        
         $form = $this->createForm(FigureType::class, $figure);
 
         $form->handleRequest($request);
@@ -65,10 +65,11 @@ class BlogController extends AbstractController
             // We recover transmitted images
             $images = $form->get('images')->getData();
 
+            
             // Loop on images
             foreach($images as $image){
                 // Generation of a new name of file
-                $file = uniqid() . '.' . $image->guessExtension();
+                //$file = uniqid() . '.' . $image->guessExtension();
 
                 //Copy of the file in uploads file
                 $image->move(
@@ -79,7 +80,9 @@ class BlogController extends AbstractController
                 // We stock image in the database with its name
                 $img = new Images();
                 $img->setName($file);
-                $figure->addImage($img);
+                $figure->addImage($image);
+
+            
             }
             
             $videos = $form->get('videos')->getData();
