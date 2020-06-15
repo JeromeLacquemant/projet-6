@@ -20,7 +20,7 @@
     {{ form_row(formFigure.category_figure) }}
 
     <h2>Images</h2>
-    {{ form_row(formFigure.images, {'attr': {'placeholder': "Nouvelle image de la figure"}}) }}
+    {#{{ form_row(formFigure.images, {'attr': {'placeholder': "Nouvelle image de la figure"}}) }}
 
     {% for images in figure.images %}
     <div>
@@ -28,7 +28,15 @@
         <a href = "{{ path('figure_delete_image', {id: images.id}) }}"
         data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>
     </div>
+    {% endfor %} #}
+
+    <div class="col-sm-8 col-sm-offset-2" id="image_list" data-prototype="{{ form_widget(formFigure.images.vars.prototype)|e('html_attr') }}">
+    {% for images in figure.images %}
+    <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150">
+    <a href = "{{ path('figure_delete_image', {id: images.id}) }}"
+        data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>
     {% endfor %}
+    </div>    
 
     <h2>Videos</h2>
     <div class="col-sm-8 col-sm-offset-2" id="video_list" data-prototype="{{ form_widget(formFigure.videos.vars.prototype)|e('html_attr') }}">
@@ -59,5 +67,6 @@ crossorigin="anonymous"></script>
 
 {% block javascripts %}
     <script src="{{ asset('js/image.js') }}"></script>
+    <script src="{{ asset('js/image2.js') }}"></script>
     <script src="{{ asset('js/video.js') }}"></script>
 {% endblock %}
