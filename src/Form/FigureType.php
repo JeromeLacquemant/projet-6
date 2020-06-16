@@ -35,7 +35,8 @@ class FigureType extends AbstractType
                     'label' => false
                 ],
                 'allow_add' => true,
-                'mapped' => false
+                'mapped' => false,
+                'required' => false
             ])
             ->add('videos', CollectionType::class, [
                 'entry_type' => VideoType::class,
@@ -43,7 +44,8 @@ class FigureType extends AbstractType
                     'label' => false
                 ],
                 'allow_add' => true,
-                'mapped' => false
+                'mapped' => false,
+                'required' => false
             ])
         ;
     }

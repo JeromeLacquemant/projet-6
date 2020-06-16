@@ -32,10 +32,12 @@
 
     <div class="col-sm-8 col-sm-offset-2" id="image_list" data-prototype="{{ form_widget(formFigure.images.vars.prototype)|e('html_attr') }}">
     {% for images in figure.images %}
+    <div>
     <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150">
     <a href = "{{ path('figure_delete_image', {id: images.id}) }}"
         data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>
-    {% endfor %}
+    </div>
+        {% endfor %}
     </div>    
 
     <h2>Videos</h2>

@@ -66,24 +66,23 @@ class BlogController extends AbstractController
             $images = $form->get('images')->getData();
 
             if($images){
-            // Loop on images
-            foreach($images as $image){
-                // Generation of a new name of file
-                $file = $image->getName();
-                $fileName = uniqid() . '.' . $file->guessExtension();
+                // Loop on images
+                foreach($images as $image){
+                    // Generation of a new name of file
+                    $file = $image->getName();
+                    $fileName = uniqid() . '.' . $file->guessExtension();
 
-                //Copy of the file in uploads file
-                $file->move(
-                    $this->getParameter('images_directory'),
-                    $fileName
-                );
+                    //Copy of the file in uploads file
+                    $file->move(
+                        $this->getParameter('images_directory'),
+                        $fileName
+                    );
 
-                // We stock image in the database with its name
-                $img = new Images();
-                $img->setName($fileName);
-                $figure->addImage($img);
-            }
-            
+                    // We stock image in the database with its name
+                    $img = new Images();
+                    $img->setName($fileName);
+                    $figure->addImage($img);
+                }
             }
             
             $videos = $form->get('videos')->getData();
