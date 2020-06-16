@@ -65,23 +65,24 @@ class BlogController extends AbstractController
             // We recover transmitted images
             $images = $form->get('images')->getData();
 
-            
+            if($images){
             // Loop on images
             foreach($images as $image){
                 // Generation of a new name of file
-                //$file = uniqid() . '.' . $image->guessExtension();
+                $file = $image->getName();
+                $fileName = uniqid() . '.' . $file->guessExtension();
 
                 //Copy of the file in uploads file
-                $image->move(
+                $file->move(
                     $this->getParameter('images_directory'),
-                    $file
+                    $fileName
                 );
 
                 // We stock image in the database with its name
                 $img = new Images();
-                $img->setName($file);
-                $figure->addImage($image);
-
+                $img->setName($fileName);
+                $figure->addImage($img);
+            }
             
             }
             
