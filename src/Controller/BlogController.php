@@ -65,6 +65,9 @@ class BlogController extends AbstractController
             // We recover transmitted images
             $images = $form->get('images')->getData();
 
+            // Delete the null contains in the array
+            $images = array_filter($images);
+
             if($images){
                 // Loop on images
                 foreach($images as $image){
@@ -84,12 +87,18 @@ class BlogController extends AbstractController
                     $figure->addImage($img);
                 }
             }
-            
+
             $videos = $form->get('videos')->getData();
+
+            // Delete the null contains in the array
+            $videos = array_filter($videos);
+
+            if($videos) {
             foreach ($videos as $video) {
                 $vid = new Videos();
                 $figure->addVideo($video);
             }
+        }
 
             if(!$figure->getId()){
                 $figure->setCreatedAt(new \DateTime());
@@ -177,14 +186,11 @@ class BlogController extends AbstractController
     public function deleteVideo(Videos $video, Request $request) {
         $data = json_decode($request->getContent(), true);
 
-        // We check if the token is valid
         if($this->isCsrfTokenValid('delete'.$video->getId(), $data['_token'])){
-            // We remove from the database
             $em = $this->getDoctrine()->getManager();
             $em->remove($video);
             $em->flush();
 
-            //Response in json
             return new JsonResponse(['success' => 1]);
         
         }else {
