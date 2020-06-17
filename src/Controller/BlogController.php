@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Figure;
 use App\Entity\Images;
+use App\Entity\Videos;
 use App\Entity\Comment;
 use App\Form\FigureType;
 use App\Form\CommentType;
@@ -12,12 +13,16 @@ use App\Repository\FigureRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class BlogController extends AbstractController
 {
@@ -60,22 +65,40 @@ class BlogController extends AbstractController
             // We recover transmitted images
             $images = $form->get('images')->getData();
 
-            // Loop on images
-            foreach($images as $image){
-                // Generation of a new name of file
-                $file = uniqid() . '.' . $image->guessExtension();
+            // Delete the null contains in the array
+            $images = array_filter($images);
 
-                //Copy of the file in uploads file
-                $image->move(
-                    $this->getParameter('images_directory'),
-                    $file
-                );
+            if($images){
+                // Loop on images
+                foreach($images as $image){
+                    // Generation of a new name of file
+                    $file = $image->getName();
+                    $fileName = uniqid() . '.' . $file->guessExtension();
 
-                // We stock image in the database with its name
-                $img = new Images();
-                $img->setName($file);
-                $figure->addImage($img);
+                    //Copy of the file in uploads file
+                    $file->move(
+                        $this->getParameter('images_directory'),
+                        $fileName
+                    );
+
+                    // We stock image in the database with its name
+                    $img = new Images();
+                    $img->setName($fileName);
+                    $figure->addImage($img);
+                }
             }
+
+            $videos = $form->get('videos')->getData();
+
+            // Delete the null contains in the array
+            $videos = array_filter($videos);
+
+            if($videos) {
+            foreach ($videos as $video) {
+                $vid = new Videos();
+                $figure->addVideo($video);
+            }
+        }
 
             if(!$figure->getId()){
                 $figure->setCreatedAt(new \DateTime());
@@ -150,6 +173,24 @@ class BlogController extends AbstractController
             $em->flush();
 
             //Response in json
+            return new JsonResponse(['success' => 1]);
+        
+        }else {
+            return new JsonResponse(['error' => 'Token Invalide'], 400);
+        }
+    }
+
+    /**
+     * @Route("/delete/video/{id}", name="figure_delete_video", methods={"DELETE"})
+     */
+    public function deleteVideo(Videos $video, Request $request) {
+        $data = json_decode($request->getContent(), true);
+
+        if($this->isCsrfTokenValid('delete'.$video->getId(), $data['_token'])){
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($video);
+            $em->flush();
+
             return new JsonResponse(['success' => 1]);
         
         }else {

@@ -3,12 +3,18 @@
 namespace App\Form;
 
 use App\Entity\Figure;
+use App\Entity\Videos;
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class FigureType extends AbstractType
 {
@@ -23,13 +29,24 @@ class FigureType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'title'
             ])
-            ->add('images', FileType::class, [
-                'label' => false,
-                'multiple' => true,
+            ->add('images', CollectionType::class, [
+                'entry_type' => ImageType::class,
+                'entry_options' => [
+                    'label' => false
+                ],
+                'allow_add' => true,
                 'mapped' => false,
                 'required' => false
             ])
-            ->add('video')
+            ->add('videos', CollectionType::class, [
+                'entry_type' => VideoType::class,
+                'entry_options' => [
+                    'label' => false
+                ],
+                'allow_add' => true,
+                'mapped' => false,
+                'required' => false
+            ])
         ;
     }
 

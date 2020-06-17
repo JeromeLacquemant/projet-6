@@ -22,22 +22,25 @@
         <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie{{ figure.categoryfigure.title }}</div>
         <div class="content">
             {% for images in figure.images %}
-                <img src="{{ asset('/uploads/' ~ images.name) }}" alt="Image" width="150">
+                <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150">
             {% endfor %}
 
-            {{ figure.video|raw }}
+            {% for videos in figure.videos %}
+                {{ videos.name|raw }}
+            {% endfor %}
+
             {{ figure.content|raw}}
             
         </div>
     </article>
-
+{#
     <section id="boxs">
         <h1>{{ figure.comments|length}} Commentaires : </h1>
         {% for comment in figure.comments %}
             <div class="box">
                 <div class="row">
                     <div class="col-3">
-                        <img src="{{ asset('/uploads/user' ~ comment.commentuser.image) }}" alt="Image" width="20">
+                        <img src="{{ asset('/uploads/users/' ~ comment.commentuser.image) }}" alt="Image" width="20">
                     </div>
                     <div class="col-3">
                         {{ comment.commentuser.username }} (<small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small>)
@@ -48,6 +51,7 @@
                 </div>
             </div>
         {% endfor %}
+#}
 
         <div class="col-md-12 text-center">
             <div class="button">

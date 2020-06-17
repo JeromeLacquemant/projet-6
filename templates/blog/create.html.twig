@@ -12,9 +12,6 @@
         {% endif %}
     </h1>
 
-
-
-
     {# We keep theses tags if we want to add some content before our form #}
     {{ form_start(formFigure) }} 
 
@@ -23,18 +20,36 @@
     {{ form_row(formFigure.category_figure) }}
 
     <h2>Images</h2>
-    {{ form_row(formFigure.images, {'attr': {'placeholder': "Nouvelle image de la figure"}}) }}
+    {#{{ form_row(formFigure.images, {'attr': {'placeholder': "Nouvelle image de la figure"}}) }}
 
     {% for images in figure.images %}
     <div>
-        <img src="{{ asset('/uploads/' ~ images.name) }}" alt="Image" width="150">
+        <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150">
         <a href = "{{ path('figure_delete_image', {id: images.id}) }}"
         data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>
     </div>
+    {% endfor %} #}
+
+    <div class="col-sm-8 col-sm-offset-2" id="image_list" data-prototype="{{ form_widget(formFigure.images.vars.prototype)|e('html_attr') }}">
+    {% for images in figure.images %}
+        <div>
+            <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150">
+            <a href = "{{ path('figure_delete_image', {id: images.id}) }}"
+                data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>
+        </div>
     {% endfor %}
+    </div>    
 
     <h2>Videos</h2>
-    {{ form_row(formFigure.video, {'attr': {'placeholder': "Vidéo de la figure"}}) }}
+    <div class="col-sm-8 col-sm-offset-2" id="video_list" data-prototype="{{ form_widget(formFigure.videos.vars.prototype)|e('html_attr') }}">
+    {% for videos in figure.videos %}
+        <div>
+        {{ videos.name|raw }}
+            <a href = "{{ path('figure_delete_video', {id: videos.id}) }}"
+            data-delete data-token="{{ csrf_token('delete' ~ videos.id) }}">Supprimer</a>
+        </div>
+    {% endfor %}
+    </div>
 
     <button type="submit" class="btn btn-success">
         {% if editMode %}
@@ -47,8 +62,17 @@
     {# We keep theses tags if we want to add some content before our form #}
     {{ form_end(formFigure) }}
 
+    <script 
+src="https://code.jquery.com/jquery-2.2.4.min.js"
+integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+crossorigin="anonymous"></script>
+
 {% endblock %}
+
+
 
 {% block javascripts %}
     <script src="{{ asset('js/image.js') }}"></script>
+    <script src="{{ asset('js/image2.js') }}"></script>
+    <script src="{{ asset('js/video.js') }}"></script>
 {% endblock %}

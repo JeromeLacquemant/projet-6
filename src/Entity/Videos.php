@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\ImagesRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\VideosRepository")
  */
-class Images
+class Videos
 {
     /**
      * @ORM\Id()
@@ -22,7 +22,7 @@ class Images
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Figure", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Figure", inversedBy="videos")
      * @ORM\JoinColumn(nullable=false)
      */
     private $figures;
@@ -32,12 +32,12 @@ class Images
         return $this->id;
     }
 
-    public function getName()
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName($name): self
+    public function setName(string $name): self
     {
         $this->name = $name;
 

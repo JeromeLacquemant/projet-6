@@ -6,8 +6,6 @@ $("#showMore").click(function(){
     }
 });
 
-
-
 $(function(){
     $("img.lazy").lazyload();
 });

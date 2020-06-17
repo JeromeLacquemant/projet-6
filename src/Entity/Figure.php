@@ -32,12 +32,6 @@ class Figure
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5, max=255, minMessage="Le nom de la vidéo est trop court (5 caractères minimum)")
-     */
-    private $video;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -65,10 +59,17 @@ class Figure
      */
     private $figure_user;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Videos", mappedBy="figures", 
+     * orphanRemoval=true, cascade={"persist"})
+     */
+    private $videos;
+
     public function __construct()
     {
         $this->comments = new ArrayCollection();
         $this->images = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -108,18 +109,6 @@ class Figure
     public function setImage(string $image): self
     {
         $this->image = $image;
-
-        return $this;
-    }
-
-    public function getVideo(): ?string
-    {
-        return $this->video;
-    }
-
-    public function setVideo(string $video): self
-    {
-        $this->video = $video;
 
         return $this;
     }
@@ -218,6 +207,37 @@ class Figure
     public function setFigureUser(?User $figure_user): self
     {
         $this->comment_user = $comment_user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Videos[]
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Videos $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setFigures($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Videos $video): self
+    {
+        if ($this->videos->contains($video)) {
+            $this->videos->removeElement($video);
+            // set the owning side to null (unless already changed)
+            if ($video->getFigures() === $this) {
+                $video->setFigures(null);
+            }
+        }
 
         return $this;
     }
