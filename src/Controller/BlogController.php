@@ -170,4 +170,25 @@ class BlogController extends AbstractController
             return new JsonResponse(['error' => 'Token Invalide'], 400);
         }
     }
+
+    /**
+     * @Route("/delete/video/{id}", name="figure_delete_video", methods={"DELETE"})
+     */
+    public function deleteVideo(Videos $video, Request $request) {
+        $data = json_decode($request->getContent(), true);
+
+        // We check if the token is valid
+        if($this->isCsrfTokenValid('delete'.$video->getId(), $data['_token'])){
+            // We remove from the database
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($video);
+            $em->flush();
+
+            //Response in json
+            return new JsonResponse(['success' => 1]);
+        
+        }else {
+            return new JsonResponse(['error' => 'Token Invalide'], 400);
+        }
+    }
 }

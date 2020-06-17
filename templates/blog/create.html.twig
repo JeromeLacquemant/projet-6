@@ -32,18 +32,22 @@
 
     <div class="col-sm-8 col-sm-offset-2" id="image_list" data-prototype="{{ form_widget(formFigure.images.vars.prototype)|e('html_attr') }}">
     {% for images in figure.images %}
-    <div>
-    <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150">
-    <a href = "{{ path('figure_delete_image', {id: images.id}) }}"
-        data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>
-    </div>
-        {% endfor %}
+        <div>
+            <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150">
+            <a href = "{{ path('figure_delete_image', {id: images.id}) }}"
+                data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>
+        </div>
+    {% endfor %}
     </div>    
 
     <h2>Videos</h2>
     <div class="col-sm-8 col-sm-offset-2" id="video_list" data-prototype="{{ form_widget(formFigure.videos.vars.prototype)|e('html_attr') }}">
     {% for videos in figure.videos %}
+        <div>
         {{ videos.name|raw }}
+            <a href = "{{ path('figure_delete_video', {id: videos.id}) }}"
+            data-delete data-token="{{ csrf_token('delete' ~ videos.id) }}">Supprimer</a>
+        </div>
     {% endfor %}
     </div>
 
