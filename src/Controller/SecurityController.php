@@ -107,7 +107,7 @@ class SecurityController extends AbstractController
 
         $this->addFlash('message', 'Vous avez bien activé votre compte');
 
-        return $this->redirectToRoute('blog');
+        return $this->redirectToRoute('security_login');
 
 
 
