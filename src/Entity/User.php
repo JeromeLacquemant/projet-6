@@ -67,6 +67,11 @@ class User implements UserInterface //User Interface -> Allows ton insure that a
      */
     private $activation_token;
 
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $rest_token;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -197,6 +202,18 @@ class User implements UserInterface //User Interface -> Allows ton insure that a
     public function setActivationToken(?string $activation_token): self
     {
         $this->activation_token = $activation_token;
+
+        return $this;
+    }
+
+    public function getRestToken(): ?string
+    {
+        return $this->rest_token;
+    }
+
+    public function setRestToken(?string $rest_token): self
+    {
+        $this->rest_token = $rest_token;
 
         return $this;
     }

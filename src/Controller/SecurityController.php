@@ -14,6 +14,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class SecurityController extends AbstractController
 {
@@ -108,8 +109,12 @@ class SecurityController extends AbstractController
         $this->addFlash('message', 'Vous avez bien activé votre compte');
 
         return $this->redirectToRoute('security_login');
+    }
 
-
+    /**
+     * @Route('/oubli-pass', name="app_forgottent_password)
+     */
+    public function forgottenPass(Request $request, UserRepository $userRepo, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator) {
 
     }
 
