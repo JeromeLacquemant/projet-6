@@ -112,10 +112,67 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route('/oubli-pass', name="app_forgottent_password)
+     * @Route('/oubli-pass', name="app_forgottent_password")
      */
     public function forgottenPass(Request $request, UserRepository $userRepo, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator) {
+        //We create the form
+        $form = $this->createForm(ResetPassType::class);
 
+        // We manage the form
+        $form->handleRequest($request);
+
+        // If the form is valid
+        if($form->isSubmitted() && $form->isValid()) {
+            $donnees = $form->getData();
+
+            //We search if a user has this email
+            $user = $userRepo->findOneByEmail($donnes['email']);
+
+            //If the user doesn't exist
+            if(!$user) {
+                //We send a flash message
+                $this->addFlash('danger', 'Cette adresse n\'existe pas');
+
+                return $this->redirectToRoute('app_login');
+            }
+
+            //We generate a token
+            $token = $tokenGenerator->generateToken();
+
+            try{
+                $user->setResetToken($token);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+            }catch(\Exception $e) {
+                $this->addFlash('warning', 'Une erreur est survenue : '.$e->getMessage());
+                return $this->redirectToRoute('app_login');
+            }
+
+            //We generate the reset URL for passwords
+            $url = $this->generateUrl('app_reset_password', ['token' => $token]);
+
+            //We send the email
+            $message = (new TemplatedEmail())
+            ->from('jerome.lacquemant@gmail.com')
+            ->to($user->getEmail())
+            ->subject('récupération de votre mot de passe')
+            ->setBody(
+                "<p>Bonjour,<p><p>Une demande de réinitialisation de mot de passe a été effectuée pour le site Snowtricks. Veuillez cliquez sur le lien suivant : " . $url . '</p>',
+                'text/html'
+            )
+        ;
+
+        $mailer->send($message);
+
+        //We create a flash message
+        $this->addFlash('message', 'Un email de réinitialisation de mot de passe vous a été envoyé');
+    
+        return $this->redirectToRoute('app_login');
+        }
+
+        // We redirect 
+        return $this->render('security/forgotten_password.html.twig', ['emailForm' => $form->createView()]);
     }
 
 }
