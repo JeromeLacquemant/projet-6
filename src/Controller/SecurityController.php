@@ -59,7 +59,10 @@ class SecurityController extends AbstractController
                 ->from('jerome.lacquemant@gmail.com')
                 ->to($user->getEmail())
                 ->subject('activation de votre compte')
-                ->htmlTemplate('emails/activation.html.twig', ['token' => $user->getActivationToken()])
+                ->htmlTemplate('emails/activation.html.twig')
+                ->context([
+                    'user' => $user
+                ])
             ;
 
             $mailer->send($message);
