@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Form\ResetPassType;
 use App\Form\RegistrationType;
 use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
@@ -112,7 +113,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route('/oubli-pass', name="app_forgottent_password")
+     * @Route("/oubli-pass", name="app_forgotten_password")
      */
     public function forgottenPass(Request $request, UserRepository $userRepo, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator) {
         //We create the form
@@ -126,14 +127,14 @@ class SecurityController extends AbstractController
             $donnees = $form->getData();
 
             //We search if a user has this email
-            $user = $userRepo->findOneByEmail($donnes['email']);
+            $user = $userRepo->findOneByEmail($donnees['email']);
 
             //If the user doesn't exist
             if(!$user) {
                 //We send a flash message
                 $this->addFlash('danger', 'Cette adresse n\'existe pas');
 
-                return $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('security_login');
             }
 
             //We generate a token
@@ -157,10 +158,7 @@ class SecurityController extends AbstractController
             ->from('jerome.lacquemant@gmail.com')
             ->to($user->getEmail())
             ->subject('récupération de votre mot de passe')
-            ->setBody(
-                "<p>Bonjour,<p><p>Une demande de réinitialisation de mot de passe a été effectuée pour le site Snowtricks. Veuillez cliquez sur le lien suivant : " . $url . '</p>',
-                'text/html'
-            )
+            ->htmlTemplate('security/forgotten_password.html.twig')
         ;
 
         $mailer->send($message);
@@ -168,11 +166,17 @@ class SecurityController extends AbstractController
         //We create a flash message
         $this->addFlash('message', 'Un email de réinitialisation de mot de passe vous a été envoyé');
     
-        return $this->redirectToRoute('app_login');
+        return $this->redirectToRoute('security_login');
         }
 
         // We redirect 
         return $this->render('security/forgotten_password.html.twig', ['emailForm' => $form->createView()]);
     }
 
+    /**
+     * @Route("/reset-pass/{token}", name="app_reset_password")
+     */
+    public function resetPassword() {
+
+    }
 }

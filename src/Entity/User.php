@@ -70,7 +70,7 @@ class User implements UserInterface //User Interface -> Allows ton insure that a
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $rest_token;
+    private $reset_token;
 
     public function getId(): ?int
     {
@@ -206,14 +206,14 @@ class User implements UserInterface //User Interface -> Allows ton insure that a
         return $this;
     }
 
-    public function getRestToken(): ?string
+    public function getResetToken(): ?string
     {
-        return $this->rest_token;
+        return $this->reset_token;
     }
 
-    public function setRestToken(?string $rest_token): self
+    public function setResetToken(?string $reset_token): self
     {
-        $this->rest_token = $rest_token;
+        $this->reset_token = $reset_token;
 
         return $this;
     }
