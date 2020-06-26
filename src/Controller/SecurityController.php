@@ -43,7 +43,6 @@ class SecurityController extends AbstractController
 
             $user->setImage($file);
 
-
             // Management of the password
             $hash = $encoder->encodePassword($user, $user->getPassword());
 
@@ -51,7 +50,6 @@ class SecurityController extends AbstractController
 
             // We generate the activation_token
             $user->setActivationToken(md5(uniqid()));
-
 
             $manager->persist($user);
             $manager->flush();
@@ -69,7 +67,6 @@ class SecurityController extends AbstractController
 
             $mailer->send($message);
         
-
             return $this->redirectToRoute('security_login');
         }
 
@@ -81,7 +78,12 @@ class SecurityController extends AbstractController
     /**
      * @Route("/connexion", name="security_login")
      */
-    public function login() {
+    public function login($activate=0) {
+
+        if ($activate = 1) {
+            $this->addFlash('message', 'Vous avez bien activé votre compte');
+        }
+
         return $this->render('security/login.html.twig');
     }
 
@@ -98,7 +100,7 @@ class SecurityController extends AbstractController
         $user = $userRepo->findOneBy(['activation_token' => $token]);
 
         if(!$user) {
-            throw $this->createNotFoundException('Cet utilisateur n\'existe pas.');
+            return $this->redirectToRoute('security_login');
         }
 
         // Suppression of the token
@@ -109,7 +111,7 @@ class SecurityController extends AbstractController
 
         $this->addFlash('message', 'Vous avez bien activé votre compte');
 
-        return $this->redirectToRoute('security_login');
+        return $this->redirectToRoute('security_login', array('activate' => 1));
     }
 
     /**
@@ -121,7 +123,7 @@ class SecurityController extends AbstractController
 
         // We manage the form
         $form->handleRequest($request);
-
+        
         // If the form is valid
         if($form->isSubmitted() && $form->isValid()) {
             $donnees = $form->getData();
@@ -147,18 +149,22 @@ class SecurityController extends AbstractController
                 $entityManager->flush();
             }catch(\Exception $e) {
                 $this->addFlash('warning', 'Une erreur est survenue : '.$e->getMessage());
-                return $this->redirectToRoute('app_login');
+                return $this->redirectToRoute('security_login');
             }
 
             //We generate the reset URL for passwords
-            $url = $this->generateUrl('app_reset_password', ['token' => $token]);
+            
+            //$url = $this->generateUrl('app_reset_password', ['token' => $token]);
 
             //We send the email
             $message = (new TemplatedEmail())
             ->from('jerome.lacquemant@gmail.com')
             ->to($user->getEmail())
             ->subject('récupération de votre mot de passe')
-            ->htmlTemplate('security/forgotten_password.html.twig')
+            ->htmlTemplate('emails/reset_password.html.twig')
+            ->context([
+                'user' => $user
+            ])
         ;
 
         $mailer->send($message);
