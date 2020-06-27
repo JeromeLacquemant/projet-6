@@ -115,7 +115,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/oubli-pass", name="app_forgotten_password")
+     * @Route("/oublipass", name="app_forgotten_password")
      */
     public function forgottenPass(Request $request, UserRepository $userRepo, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator) {
         //We create the form
@@ -152,10 +152,7 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('security_login');
             }
 
-            //We generate the reset URL for passwords
-            
             //$url = $this->generateUrl('app_reset_password', ['token' => $token]);
-
             //We send the email
             $message = (new TemplatedEmail())
             ->from('jerome.lacquemant@gmail.com')
@@ -163,7 +160,7 @@ class SecurityController extends AbstractController
             ->subject('récupération de votre mot de passe')
             ->htmlTemplate('emails/reset_password.html.twig')
             ->context([
-                'user' => $user
+                'user' => $user->getResetToken()
             ])
         ;
 
@@ -182,7 +179,34 @@ class SecurityController extends AbstractController
     /**
      * @Route("/reset-pass/{token}", name="app_reset_password")
      */
-    public function resetPassword() {
+    public function resetPassword($token, Request $request, UserPasswordEncoderInterface $passwordEncoder) {
+        // We search the user with the given token
+        $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['reset_token' => $token]);
+
+        if(!$user){
+            $this->addFlash('danger', 'Token inconnu');
+            return $this->redirectToRoute('security_login');
+        }
+
+        // If the form is sent by the method POST
+        if($request->isMethod('POST')){
+            // We delete the token
+            $user->setResetToken(null);
+
+            //We encode the password
+            $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('message', 'Mot de passe modifié avec succès');
+
+            return $this->redirectToRoute('security_login');
+        }else{
+            return $this->render('security/reset_pass.html.twig', ['token' => $token]);
+        }
+
+
 
     }
 }
