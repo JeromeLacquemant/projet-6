@@ -9,17 +9,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
-class RegistrationType extends AbstractType
+class ResetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email')
-            ->add('username')
-            ->add('password', PasswordType::class) // PasswordType allows to hide the password
-            ->add('confirm_password', PasswordType::class) // PasswordType allows to hide the password
-            ->add('image', FileType::class, [
-            'required' => false])
+            ->add('password', PasswordType::class) 
+            ->add('confirm_password', PasswordType::class) 
         ;
     }
 

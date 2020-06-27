@@ -1,6 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{% for message in app.flashes('message') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('warning') %}
+    <div class="alert alert-warning>" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('danger') %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+
     <h1>Connexion</h1>
 
     <form action="{{ path('security_login') }}" method="post">
@@ -16,4 +32,13 @@
             <button type="submit" class="btn btn-success">Connexion !</button>
         </div>
     </form>
-{% endblock %}
+
+    <div class="form-group">
+        <a href="{{ path('app_forgotten_password') }}" class="btn btn-warning">Mot de passe oublié</a>
+    </div>
+
+    <h1>S'inscrire</h1>
+    <div class="form-group">
+    <a href="{{ path('security_registration') }}" class="btn btn-success">Inscription</a>
+</div>
+    {% endblock %}
