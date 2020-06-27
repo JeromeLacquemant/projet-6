@@ -189,7 +189,7 @@ class SecurityController extends AbstractController
         }
 
         // If the form is sent by the method POST
-        if($request->isMethod('POST')){
+        if($form->isSubmitted() && $form->isValid()) {
             // We delete the token
             $user->setResetToken(null);
 
