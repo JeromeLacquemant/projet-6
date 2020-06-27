@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Form\ResetType;
 use App\Form\ResetPassType;
 use App\Form\RegistrationType;
 use Symfony\Component\Mime\Email;
@@ -78,11 +79,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/connexion", name="security_login")
      */
-    public function login($activate=0) {
-
-        if ($activate = 1) {
-            $this->addFlash('message', 'Vous avez bien activé votre compte');
-        }
+    public function login() {
 
         return $this->render('security/login.html.twig');
     }
@@ -111,7 +108,7 @@ class SecurityController extends AbstractController
 
         $this->addFlash('message', 'Vous avez bien activé votre compte');
 
-        return $this->redirectToRoute('security_login', array('activate' => 1));
+        return $this->redirectToRoute('security_login');
     }
 
     /**
@@ -152,7 +149,6 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('security_login');
             }
 
-            //$url = $this->generateUrl('app_reset_password', ['token' => $token]);
             //We send the email
             $message = (new TemplatedEmail())
             ->from('jerome.lacquemant@gmail.com')
@@ -183,6 +179,10 @@ class SecurityController extends AbstractController
         // We search the user with the given token
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['reset_token' => $token]);
 
+        $form = $this->createForm(ResetType::class, $user);
+
+        $form->handleRequest($request);
+
         if(!$user){
             $this->addFlash('danger', 'Token inconnu');
             return $this->redirectToRoute('security_login');
@@ -194,7 +194,7 @@ class SecurityController extends AbstractController
             $user->setResetToken(null);
 
             //We encode the password
-            $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
+            $user->setPassword($passwordEncoder->encodePassword($user, $user->getPassword()));
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
@@ -203,10 +203,9 @@ class SecurityController extends AbstractController
 
             return $this->redirectToRoute('security_login');
         }else{
-            return $this->render('security/reset_pass.html.twig', ['token' => $token]);
+            return $this->render('security/reset_pass.html.twig', [
+                'token' => $token,
+                'form' => $form->createView()]);
         }
-
-
-
     }
 }
