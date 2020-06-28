@@ -86,7 +86,7 @@ class Comment
 
     public function setCommentUser(?User $comment_user): self
     {
-        $this->comment_user = $comment_figure;
+        $this->comment_user = $comment_user;
 
         return $this;
     }
