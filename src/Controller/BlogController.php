@@ -16,13 +16,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\String\Slugger\SluggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class BlogController extends AbstractController
 {
@@ -129,7 +130,8 @@ class BlogController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()) {
             $comment    ->setCreatedAt(new \DateTime())
-                        ->setFigure($figure);
+                        ->setFigure($figure)
+                        ->setCommentUser($comment_user = $this->getUser());
 
             $manager->persist($comment);
             $manager->flush();
@@ -141,7 +143,7 @@ class BlogController extends AbstractController
 
         return $this->render('blog/show.html.twig', [
             'figure' => $figure,
-            'commentForm' => $form->createView()
+            'commentForm' => $form->createView(),
         ]);
     }
 

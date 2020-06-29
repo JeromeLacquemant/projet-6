@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <article>
         <h2>{{ figure.name }}</h2>
-        <p>{{ figure.figureuser.username }}</p>
+        <p>Auteur : {{ figure.figureuser.username }}</p>
             {% if app.user %} 
             <a href="{{ path('blog_edit', {'id': figure.id}) }}" class="btn btn-success" onclick="return window.confirm(`Êtes vous sur de vouloir modifier cet article ?`)">
                 <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg">
@@ -33,14 +33,18 @@
             
         </div>
     </article>
-{#
+
     <section id="boxs">
         <h1>{{ figure.comments|length}} Commentaires : </h1>
         {% for comment in figure.comments %}
             <div class="box">
                 <div class="row">
-                    <div class="col-3">
-                        <img src="{{ asset('/uploads/users/' ~ comment.commentuser.image) }}" alt="Image" width="20">
+                    <div class="col-1">
+                        {% if comment.commentuser.image == "avatar.jpg" %}
+                        <img src="{{ asset('/uploads/user/avatar.jpg') }}" alt="Image" width="80">
+                        {% else %}
+                        <img src="{{ asset('/uploads/user/' ~ comment.commentuser.image) }}" alt="Image" width="80">
+                        {% endif %}
                     </div>
                     <div class="col-3">
                         {{ comment.commentuser.username }} (<small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small>)
@@ -51,7 +55,7 @@
                 </div>
             </div>
         {% endfor %}
-#}
+
 
         <div class="col-md-12 text-center">
             <div class="button">
