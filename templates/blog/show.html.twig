@@ -39,11 +39,11 @@
         {% for comment in figure.comments %}
             <div class="box">
                 <div class="row">
-                    <div class="col-3">
+                    <div class="col-1">
                         {% if comment.commentuser.image == "avatar.jpg" %}
                         <img src="{{ asset('/uploads/user/avatar.jpg') }}" alt="Image" width="80">
                         {% else %}
-                        <img src="{{ asset('/uploads/user/' ~ comment.commentuser.image) }}" alt="Ima" width="80">
+                        <img src="{{ asset('/uploads/user/' ~ comment.commentuser.image) }}" alt="Image" width="80">
                         {% endif %}
                     </div>
                     <div class="col-3">
