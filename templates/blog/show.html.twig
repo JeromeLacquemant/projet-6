@@ -40,10 +40,11 @@
             <div class="box">
                 <div class="row">
                     <div class="col-3">
-                        {% if comment.commentuser.image %}
-                        <img src="{{ asset('/uploads/users/' ~ comment.commentuser.image) }}" alt="Image" width="20">
+                        {% if comment.commentuser.image == "avatar.jpg" %}
+                        <img src="{{ asset('/uploads/user/avatar.jpg') }}" alt="Image" width="80">
+                        {% else %}
+                        <img src="{{ asset('/uploads/user/' ~ comment.commentuser.image) }}" alt="Ima" width="80">
                         {% endif %}
-                        <img src="{{ asset('/uploads/users/avatar.jpg') }}" alt="Image" width="20">
                     </div>
                     <div class="col-3">
                         {{ comment.commentuser.username }} (<small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small>)
