@@ -4,8 +4,19 @@
 {% block title %}{% endblock %}
 
 {% block body %}
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+<link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
 
+    <div class="hero-wrap js-fullheight" style="background-image":url("public/uploads/presentation/first-image.jpg") >
+        <img src="{{ asset('public/uploads/presentation/first-image.jpg') }}" alt="Image de présentation">
+        <div class="mouse">
+            <a href="#" class="mouse-icon">
+                <div class="mouse-wheel">
+                    <span class="ion-ios-arrow-round-down">...</span>
+                </div>
+            </a>
+        </div>
+    </div>
+            
 <section id="boxs">
     <div class="container">
         <div class="row">
@@ -14,7 +25,7 @@
         <div class="col-md-4 box">
             <div class="content">
             <h2>{{ figure.name }}</h2>
-            <p>{{ figure.figureuser.username }}</p>
+            <p>Auteur : {{ figure.figureuser.username }}</p>
                 {% if app.user %} 
                     <a href="{{ path('blog_edit', {'id': figure.id}) }}" class="btn btn-success" onclick="return window.confirm(`Êtes vous sur de vouloir modifier cet article ?`)">
                         <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg">
@@ -32,7 +43,7 @@
             <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie Figure</div>
             <div class="img-container">
                     {% for images in figure.images %}
-                        <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150" class="lazy img-fluid">
+                        <img src="{{ asset('public/uploads/figures/' ~ images.name) }}" alt="Image" width="150" class="lazy img-fluid">
                     {% endfor %}
                 {{ figure.content|raw}}
                 <a href="{{ path('blog_show', {'id': figure.id}) }}" class="btn btn-primary">Lire la suite</a>
