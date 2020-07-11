@@ -1,11 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    
+    <!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<link rel="stylesheet" href="{{ asset('public/css/style.css') }}">
+    
     <article>
-        <h2>{{ figure.name }}</h2>
-        <p>Auteur : {{ figure.figureuser.username }}</p>
-            {% if app.user %} 
+        <div class="row">
+        
+                   {% if app.user %} 
+    
             <a href="{{ path('blog_edit', {'id': figure.id}) }}" class="btn btn-success" onclick="return window.confirm(`Êtes vous sur de vouloir modifier cet article ?`)">
                 <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15.502 1.94a.5.5 0 010 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 01.707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 00-.121.196l-.805 2.414a.25.25 0 00.316.316l2.414-.805a.5.5 0 00.196-.12l6.813-6.814z"/>
@@ -18,32 +29,60 @@
                     <path fill-rule="evenodd" d="M14.5 3a1 1 0 01-1 1H13v9a2 2 0 01-2 2H5a2 2 0 01-2-2V4h-.5a1 1 0 01-1-1V2a1 1 0 011-1H6a1 1 0 011-1h2a1 1 0 011 1h3.5a1 1 0 011 1v1zM4.118 4L4 4.059V13a1 1 0 001 1h6a1 1 0 001-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" clip-rule="evenodd"/>
                 </svg>
             </a>
-            {% endif %}
+                {% endif %}
+                </div>
+                <h2>{{ figure.name }}</h2>
+                   
+        <p>Auteur : {{ figure.figureuser.username }}</p>
+ 
+        
+        
+            
         <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie{{ figure.categoryfigure.title }}</div>
-        <div class="content">
+        
+        {{ figure.content|raw}}
+        
+        <hr>
+        
+        <div class="container">
+            <div class="row daniel">   
             {% for images in figure.images %}
-                <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150">
+                <img class="col-lg-4 col-md-6 col-sm-12 col-xs-12 py-3" src="{{ asset('public/uploads/figures/' ~ images.name) }}" alt="Image"
+                     >
             {% endfor %}
-
+            </div>
+            <hr>
+            
+            <div class="container">
+            <div class="row">
+                
             {% for videos in figure.videos %}
+                <div class="col-lg-4 col-md-6 col-sm-12 py-3">
                 {{ videos.name|raw }}
+                </div>
             {% endfor %}
+            
+            </div>
+            </div>
 
-            {{ figure.content|raw}}
+            
             
         </div>
+            
+                 <hr>
+                 
     </article>
 
     <section id="boxs">
         <h1>{{ figure.comments|length}} Commentaires : </h1>
         {% for comment in figure.comments %}
-            <div class="box">
+            <div class="box card">
                 <div class="row">
                     <div class="col-1">
                         {% if comment.commentuser.image == "avatar.jpg" %}
-                        <img src="{{ asset('/uploads/user/avatar.jpg') }}" alt="Image" width="80">
+                        <img src="{{ asset('public/uploads/user/avatar.jpg') }}" alt="Image" width="80">
                         {% else %}
-                        <img src="{{ asset('/uploads/user/' ~ comment.commentuser.image) }}" alt="Image" width="80">
+                        <img src="{{ asset('public/uploads/user/' ~ comment.commentuser.image) }}" alt="Image" width="80">
                         {% endif %}
                     </div>
                     <div class="col-3">
@@ -76,4 +115,12 @@
         {% endif %}
         
     </section>
+        
+            <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
 {% endblock %}
