@@ -1,23 +1,9 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% form_theme formFigure 'bootstrap_4_layout.html.twig' %}
 
-
-
 {% block body %}
-    
-        <!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
-<link rel="stylesheet" href="{{ asset('public/css/style_1.css') }}">
-
+    <div class="container">
     <h1>
         {% if editMode %}
             Modification d'une figure
@@ -34,22 +20,31 @@
     {{ form_row(formFigure.category_figure) }}
 
     <h2>Images</h2>
-    <div class="col-sm-8 col-sm-offset-2" id="image_list" data-prototype="{{ form_widget(formFigure.images.vars.prototype)|e('html_attr') }}">
+    <p>Veuillez utiliser des images avec les dimensions suivantes : 300px * 300px.</p>
+    <div class="container">
+        <div class="row">
+    <div id="image_list" data-prototype="{{ form_widget(formFigure.images.vars.prototype)|e('html_attr') }}">
     {% for images in figure.images %}
+  <div class="my-3 card">
+        <img  class="col-lg-4 col-md-4 col-sm-12" src="{{ asset('public/uploads/figures/' ~ images.name) }}" alt="Image" class="custom-input-value">
+        </div>
         <div>
-            <img src="{{ asset('public/uploads/figures/' ~ images.name) }}" alt="Image" width="150" class="custom-input-value">
-            <a href = "{{ path('figure_delete_image', {id: images.id}) }}"
-                data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>
+            <a class="stylebutton" href = "{{ path('figure_delete_image', {id: images.id}) }}"
+                data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>   
         </div>
     {% endfor %}
+    </div>
     </div>    
+    </div>
+    <hr>
 
     <h2>Videos</h2>
+    <p>Veuillez utiliser sur Youtube le bouton "Partager". Cliquez ensuite sur "Intégrer". Copier, puis coller le code dans le fomulaire ci-dessous."</p>
     <div class="col-sm-8 col-sm-offset-2" id="video_list" data-prototype="{{ form_widget(formFigure.videos.vars.prototype)|e('html_attr') }}">
     {% for videos in figure.videos %}
         <div>
         {{ videos.name|raw }}
-            <a href = "{{ path('figure_delete_video', {id: videos.id}) }}"
+            <a class="my-3 stylebutton" href = "{{ path('figure_delete_video', {id: videos.id}) }}"
             data-delete data-token="{{ csrf_token('delete' ~ videos.id) }}">Supprimer</a>
         </div>
     {% endfor %}
@@ -66,17 +61,11 @@
     {# We keep theses tags if we want to add some content before our form #}
     {{ form_end(formFigure) }}
 
-    <script 
-src="https://code.jquery.com/jquery-2.2.4.min.js"
-integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-crossorigin="anonymous"></script>
-
 {% endblock %}
-
-
 
 {% block javascripts %}
     <script src="{{ asset('public/js/image.js') }}"></script>
     <script src="{{ asset('public/js/image2.js') }}"></script>
     <script src="{{ asset('public/js/video.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 {% endblock %}

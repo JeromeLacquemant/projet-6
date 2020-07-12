@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="container">
 {% for message in app.flashes('message') %}
     <div class="alert alert-success" role="alert">
         {{ message }}
@@ -17,7 +18,7 @@
     </div>
 {% endfor %}
 
-    <h1>Connexion</h1>
+    <h2>Connexion</h2>
     <form action="{{ path('security_login') }}" method="post">
         <div class="form-group">
             <input placeholder="Adresse email" required name="_username" 
@@ -32,13 +33,16 @@
         </div>
     </form>
 
-    <h1>Mot de passe oublié</h1>
+    <h2>Mot de passe oublié</h2>
     <div class="form-group">
         <a href="{{ path('app_forgotten_password') }}" class="btn btn-warning">Mot de passe oublié</a>
     </div>
-
-    <h1>S'inscrire</h1>
+    <div class="row"></div>
+    <div class="row"></div>
+    <hr>
+    <h2>S'inscrire</h2>
     <div class="form-group">
     <a href="{{ path('security_registration') }}" class="btn btn-success">Inscription</a>
 </div>
+    </div>
     {% endblock %}
