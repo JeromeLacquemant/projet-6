@@ -8,6 +8,7 @@
         {% block stylesheets %}{% endblock %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+        <link href="/public/uploads/favicon/favicon-snow.png" type="img/png" rel="icon">
     </head>
     <body>
         <!-- NAVBAR -->
@@ -48,7 +49,7 @@
         </div>
 
         {% block javascripts %}
-          <script src="{{ asset('js/loadmore.js') }}"></script>
+          <script src="{{ asset('public/js/loadmore.js') }}"></script>
         {% endblock %}
     </body>
 </html>
