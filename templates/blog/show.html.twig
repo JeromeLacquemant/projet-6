@@ -78,11 +78,11 @@
         {% for comment in figure.comments %}
             <div class="box card">
                 <div class="row">
-                    <div class="col-1">
+                    <div class="col-lg-3">
                         {% if comment.commentuser.image == "avatar.jpg" %}
-                        <img src="{{ asset('public/uploads/user/avatar.jpg') }}" alt="Image" width="80">
+                        <img src="{{ asset('public/uploads/user/avatar.jpg') }}" alt="Image" width="80" class="col-lg-4">
                         {% else %}
-                        <img src="{{ asset('public/uploads/user/' ~ comment.commentuser.image) }}" alt="Image" width="80">
+                        <img src="{{ asset('public/uploads/user/' ~ comment.commentuser.image) }}" alt="Image" width="80" class="col-lg-4">
                         {% endif %}
                     </div>
                     <div class="col-3">

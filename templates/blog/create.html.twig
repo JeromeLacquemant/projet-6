@@ -1,8 +1,22 @@
 {% extends 'base.html.twig' %}
 
+
+
 {% form_theme formFigure 'bootstrap_4_layout.html.twig' %}
 
+
+
 {% block body %}
+    
+        <!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+<link rel="stylesheet" href="{{ asset('public/css/style_1.css') }}">
 
     <h1>
         {% if editMode %}
@@ -20,20 +34,10 @@
     {{ form_row(formFigure.category_figure) }}
 
     <h2>Images</h2>
-    {#{{ form_row(formFigure.images, {'attr': {'placeholder': "Nouvelle image de la figure"}}) }}
-
-    {% for images in figure.images %}
-    <div>
-        <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150">
-        <a href = "{{ path('figure_delete_image', {id: images.id}) }}"
-        data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>
-    </div>
-    {% endfor %} #}
-
     <div class="col-sm-8 col-sm-offset-2" id="image_list" data-prototype="{{ form_widget(formFigure.images.vars.prototype)|e('html_attr') }}">
     {% for images in figure.images %}
         <div>
-            <img src="{{ asset('/uploads/figures/' ~ images.name) }}" alt="Image" width="150">
+            <img src="{{ asset('public/uploads/figures/' ~ images.name) }}" alt="Image" width="150" class="custom-input-value">
             <a href = "{{ path('figure_delete_image', {id: images.id}) }}"
                 data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>
         </div>
@@ -72,7 +76,7 @@ crossorigin="anonymous"></script>
 
 
 {% block javascripts %}
-    <script src="{{ asset('js/image.js') }}"></script>
-    <script src="{{ asset('js/image2.js') }}"></script>
-    <script src="{{ asset('js/video.js') }}"></script>
+    <script src="{{ asset('public/js/image.js') }}"></script>
+    <script src="{{ asset('public/js/image2.js') }}"></script>
+    <script src="{{ asset('public/js/video.js') }}"></script>
 {% endblock %}
