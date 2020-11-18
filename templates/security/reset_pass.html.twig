@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Changement de votre mot de passe{% endblock %}
+
+{% block body %}
+    <div class="container">
+    <h2>Entrez votre nouveau mot de passe</h2>
+
+    {{ form_start(form) }}
+    
+        {{ form_row(form.password, {'label': 'Mot de passe', 'attr':{'placeholder': 'Mot de passe'}}) }}
+        {{ form_row(form.confirm_password, {'label': 'Confirmation du mot de passe', 'attr':{'placeholder': 'Répéter le mot de passe'}}) }}
+    
+        <button type="submit" class="btn btn-success">Modification du mot de passe!</button>
+        
+        {{ form_end(form) }}
+    </div>
+    {% endblock %}

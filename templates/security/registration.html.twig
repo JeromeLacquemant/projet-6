@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+    <h1>Inscription sur le site</h1>
+
+    {{ form_start(form) }}
+
+    {{ form_row(form.username, {'label': 'Nom d\'utilisateur', 'attr':{'placeholder': 'Nom d\'utilisateur'}}) }}
+    {{ form_row(form.email, {'label': 'Adresse email', 'attr':{'placeholder': 'Adresse email'}}) }}
+    {{ form_row(form.password, {'label': 'Mot de passe', 'attr':{'placeholder': 'Mot de passe'}}) }}
+    {{ form_row(form.confirm_password, {'label': 'Confirmation du mot de passe', 'attr':{'placeholder': 'Répéter le mot de passe'}}) }}
+    {{ form_row(form.image, {'attr': {'placeholder': "Votre nouvelle photo de profil"}}) }}
+    
+    <button type="submit" class="btn btn-success">Inscription !</button>
+    
+    {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+     <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+     <script src="{{ asset('public/js/image.js') }}"></script>
+    <script src="{{ asset('public/js/image2.js') }}"></script>
+    <script src="{{ asset('public/js/video.js') }}"></script>
+{% endblock %}
