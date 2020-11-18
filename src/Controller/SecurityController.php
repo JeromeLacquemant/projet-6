@@ -12,7 +12,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Mailer\MailerInterface;
+
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -23,7 +23,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("inscription", name="security_registration")
      */
-    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, MailerInterface $mailer) {
+    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer) {
         $user = new User();
 
         $form = $this->createForm(RegistrationType::class, $user);
@@ -63,17 +63,20 @@ class SecurityController extends AbstractController
             $manager->flush();
 
             //Send an email to the user with the token
-            $message = (new TemplatedEmail())
-                ->from('jerome.lacquemant@gmail.com')
-                ->to($user->getEmail())
-                ->subject('activation de votre compte')
-                ->htmlTemplate('emails/activation.html.twig')
-                ->context([
-                    'user' => $user
-                ])
-            ;
+            $message = (new \Swift_Message('Activation de votre compte'))
+                ->setFrom('jacques.jacquemont@gmail.com')
+                ->setTo($user->getEmail())
+                ->setBody(
+                        $this->renderView(
+                            'emails/activation.html.twig', ['user' => $user]
+                        ),
+                        'text/html'
+                        );
 
             $mailer->send($message);
+            
+            //We create a flash message
+            $this->addFlash('message', 'Un email pour activer votre compte vous a été envoyé');
         
             return $this->redirectToRoute('security_login');
         }
@@ -121,7 +124,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/oublipass", name="app_forgotten_password")
      */
-    public function forgottenPass(Request $request, UserRepository $userRepo, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator) {
+    public function forgottenPass(Request $request, UserRepository $userRepo, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator) {
         //We create the form
         $form = $this->createForm(ResetPassType::class);
 
@@ -157,15 +160,15 @@ class SecurityController extends AbstractController
             }
 
             //We send the email
-            $message = (new TemplatedEmail())
-            ->from('jerome.lacquemant@gmail.com')
-            ->to($user->getEmail())
-            ->subject('récupération de votre mot de passe')
-            ->htmlTemplate('emails/reset_password.html.twig')
-            ->context([
-                'user' => $user->getResetToken()
-            ])
-        ;
+            $message = (new \Swift_Message('Récupération de votre mot de passe'))
+            ->setFrom('jacques.jacquemont@gmail.com')
+            ->setTo($user->getEmail())
+            ->setBody(
+                    $this->renderView(
+                        'emails/reset_password.html.twig', ['user' => $user->getResetToken()]
+                    ),
+                    'text/html'
+                    );
 
         $mailer->send($message);
 
