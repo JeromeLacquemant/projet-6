@@ -36,12 +36,12 @@ class FigureType extends AbstractType
                 ],
                 'allow_add' => true,
                 'mapped' => false,
-                'required' => false
+                'required' => false,
             ])
             ->add('videos', CollectionType::class, [
                 'entry_type' => VideoType::class,
                 'entry_options' => [
-                    'label' => false
+                    'label' => true
                 ],
                 'allow_add' => true,
                 'mapped' => false,

@@ -6,9 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FigureRepository")
+ *  @UniqueEntity(
+ *  fields = {"name"},
+ *  message = "La figure que vous voulez insérer existe déjà. Veuillez en choisir une autre"
+ * )
  */
 class Figure
 {
@@ -206,7 +211,7 @@ class Figure
 
     public function setFigureUser(?User $figure_user): self
     {
-        $this->comment_user = $comment_user;
+        $this->figure_user = $figure_user;
 
         return $this;
     }

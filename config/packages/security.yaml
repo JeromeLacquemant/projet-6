@@ -15,19 +15,37 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+<<<<<<< HEAD
             anonymous: lazy
+=======
+            anonymous: true
+>>>>>>> main
             #provider: users_in_memory
 
             provider: in_database
 
+<<<<<<< HEAD
             form_login:
                 login_path: security_login
                 check_path: security_login
                 default_target_path: blog
+=======
+            pattern: ^/
+            user_checker: App\Controller\UserChecker
+            
+            form_login:
+                login_path: security_login
+                check_path: security_login
+>>>>>>> main
 
             logout:
                 path: security_logout
                 target: blog
+<<<<<<< HEAD
+=======
+                
+
+>>>>>>> main
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

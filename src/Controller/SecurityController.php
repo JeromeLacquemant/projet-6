@@ -7,12 +7,9 @@ use App\Entity\User;
 use App\Form\ResetType;
 use App\Form\ResetPassType;
 use App\Form\RegistrationType;
-use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
-
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -21,7 +18,7 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("inscription", name="security_registration")
+     * @Route("/inscription", name="security_registration")
      */
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer) {
         $user = new User();
@@ -87,10 +84,10 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/connexion", name="security_login")
+     * @Route("/connexion", name="security_login", methods={"GET", "POST"})
      */
-    public function login() {
-
+    public function login(Request $request) {
+               
         return $this->render('security/login.html.twig');
     }
 
@@ -124,8 +121,8 @@ class SecurityController extends AbstractController
     /**
      * @Route("/oublipass", name="app_forgotten_password")
      */
-    public function forgottenPass(Request $request, UserRepository $userRepo, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator) {
-        //We create the form
+    public function forgottenPass(Request $request, \Swift_Mailer $mailer, UserRepository $userRepo, TokenGeneratorInterface $tokenGenerator) {
+//We create the form
         $form = $this->createForm(ResetPassType::class);
 
         // We manage the form
@@ -169,7 +166,7 @@ class SecurityController extends AbstractController
                     ),
                     'text/html'
                     );
-
+            
         $mailer->send($message);
 
         //We create a flash message

@@ -28,7 +28,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class BlogController extends AbstractController
 {
     /**
-     * @Route("/blog", name="blog")
+     * @Route("/", name="blog")
      */
     public function index(FigureRepository $repo) {
         $figures = $repo->findAll();
@@ -36,16 +36,6 @@ class BlogController extends AbstractController
         return $this->render('blog/index.html.twig', [
             'controller_name' => 'BlogController',
             'figures' => $figures,
-        ]);
-    }
-
-    /**
-     * @Route("/", name="home")
-     */
-    public function home()
-    {
-        return $this->render('blog/home.html.twig', [
-            'title' => "Salut les amis du Snow"
         ]);
     }
 
@@ -61,7 +51,7 @@ class BlogController extends AbstractController
         $form = $this->createForm(FigureType::class, $figure);
 
         $form->handleRequest($request);
-        
+                    
         if($form->isSubmitted() && $form->isValid()){
             // We recover transmitted images
             $images = $form->get('images')->getData();
@@ -102,7 +92,15 @@ class BlogController extends AbstractController
         }
 
             if(!$figure->getId()){
+                
                 $figure->setCreatedAt(new \DateTime());
+                $figure->setFigureUser($figure_user = $this->getUser());
+    
+                $this->addFlash('message', 'Vous avez bien créé une nouvelle figure !');
+            } 
+            else 
+            { 
+                $this->addFlash('message', 'Vous avez bien bien modifié la figure !');
             }
 
             $manager->persist($figure);

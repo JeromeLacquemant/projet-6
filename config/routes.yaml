@@ -1,3 +1,7 @@
+<<<<<<< HEAD
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+=======
+# config/routes.yaml
+>>>>>>> main

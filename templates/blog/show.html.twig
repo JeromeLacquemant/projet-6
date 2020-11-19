@@ -1,11 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    
+    {% for message in app.flashes('message') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('warning') %}
+    <div class="alert alert-warning>" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+{% for message in app.flashes('danger') %}
+    <div class="alert alert-danger" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
     <article>
         <div class="container">
      
-        
             {% if app.user %} 
     
             <a href="{{ path('blog_edit', {'id': figure.id}) }}" class="btn btn-success" onclick="return window.confirm(`Êtes vous sur de vouloir modifier cet article ?`)">
@@ -27,26 +40,33 @@
                    
         <p>Auteur : {{ figure.figureuser.username }}</p>
        
-        <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie{{ figure.categoryfigure.title }}</div>
-        
+        <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie {{ figure.categoryfigure.title }}</div>
+                </br>
         {{ figure.content|raw}}
         
         </div>
         
         <div class="container">
             <hr>
-            <div class="row">   
-            {% for images in figure.images %}
-                <img class=" col-lg-3 col-md-3 col-sm-12 py-3" src="{{ asset('public/uploads/figures/' ~ images.name) }}" alt="Image">
-            {% endfor %}
-            </div>
+            <div class="row ">  
+                <div class="card col-lg-12 col-md-12 col-sm-12 box">
+                    <div class="card-shadow">
+                        <div class="content">
+                            <div class="img-container">
+                                {% for images in figure.images %}
+                                    <img class="col-lg-3 col-md-3 col-sm-12 py-3" src="{{ asset('public/uploads/figures/' ~ images.name) }}" alt="Image" width="150" class="lazy img-fluid">
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <hr>
             
             <div class="container">
             <div class="row">
                 
             {% for videos in figure.videos %}
-                <div class="card col-lg-4 col-md-6 col-sm-12 py-3">
+                <div class="card col-lg-4 col-md-12 col-sm-12 py-3">
                 {{ videos.name|raw }}
                 </div>
             {% endfor %}
@@ -57,23 +77,23 @@
         </div>     
     </article>
 
-            <div class="container">
+    <div class="container">
     <section id="boxs">
-        <h1>{{ figure.comments|length}} Commentaires : </h1>
+        <h3>{{ figure.comments|length}} Commentaires : </h3>
         {% for comment in figure.comments %}
             <div class="box card">
                 <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="col-3" >
                         {% if comment.commentuser.image == "avatar.jpg" %}
-                        <img src="{{ asset('public/uploads/user/avatar.jpg') }}" alt="Image" width="80" class="col-lg-4">
+                        <img src="{{ asset('public/uploads/user/avatar.jpg') }}" alt="Photo of the basic avatar" width="90">
                         {% else %}
-                        <img src="{{ asset('public/uploads/user/' ~ comment.commentuser.image) }}" alt="Image" width="80" class="col-lg-4">
+                        <img src="{{ asset('public/uploads/user/' ~ comment.commentuser.image) }}" alt="Photo of the user's avatar"  width="90">
                         {% endif %}
                     </div>
                     <div class="col-3">
                         {{ comment.commentuser.username }} (<small>{{ comment.createdAt|date('d/m/Y à H:i') }}</small>)
                     </div>
-                    <div class="col">
+                    <div class="col-6">
                         {{ comment.content|raw }}
                     </div>
                 </div>
