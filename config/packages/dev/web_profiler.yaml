@@ -1,13 +1,6 @@
 web_profiler:
     toolbar: true
-<<<<<<< HEAD
-    intercept_redirects: false
-
-framework:
-    profiler: { only_exceptions: false }
-=======
     intercept_redirects: true
 
 framework:
     profiler: { only_exceptions: true }
->>>>>>> main
