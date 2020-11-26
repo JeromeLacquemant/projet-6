@@ -40,13 +40,12 @@
         <div class="row">
             <div id="image_list" data-prototype="{{ form_widget(formFigure.images.vars.prototype)|e('html_attr') }}">
                {% for images in figure.images %}
-                    <div class="my-3 card">
+                    <div class="">
                         <img  class="col-lg-4 col-md-4 col-sm-12" src="{{ asset('public/uploads/figures/' ~ images.name) }}" alt="Image" class="custom-input-value">
+                        <a class="my-3 stylebutton" href = "{{ path('figure_delete_image', {id: images.id}) }}"
+                            data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer l'image</a>   
                     </div>
-                    <div>
-                        <a class="stylebutton" href = "{{ path('figure_delete_image', {id: images.id}) }}"
-                            data-delete data-token="{{ csrf_token('delete' ~ images.id) }}">Supprimer</a>   
-                    </div>
+                    </br>
                 {% endfor %}
             </div>
         </div>    
@@ -62,7 +61,7 @@
                     <div>
                         {{ videos.name|raw }}
                             <a class="my-3 stylebutton" href = "{{ path('figure_delete_video', {id: videos.id}) }}"
-                            data-delete data-token="{{ csrf_token('delete' ~ videos.id) }}">Supprimer</a>
+                            data-delete data-token="{{ csrf_token('delete' ~ videos.id) }}">Supprimer la vidéo</a>
                     </div>
                 {% endfor %}
             </div>
@@ -83,7 +82,7 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('public/js/element_deletion.js') }}"></script>
     <script src="{{ asset('public/js/image.js') }}"></script>
-    <script src="{{ asset('public/js/image2.js') }}"></script>
     <script src="{{ asset('public/js/video.js') }}"></script>
 {% endblock %}

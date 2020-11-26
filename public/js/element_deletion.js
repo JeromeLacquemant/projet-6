@@ -10,7 +10,7 @@ window.onload = () => {
             e.preventDefault()
 
             //We ask confirmation
-            if(confirm("Voulez-vous supprimer cette vidéo ?")){
+            if(confirm("Voulez-vous supprimer cet élément ?")){
                 // We send an Ajax request into the href of the link with the method DELETE
                 fetch(this.getAttribute("href"), {
                     method: "DELETE", 
@@ -23,10 +23,12 @@ window.onload = () => {
                     //We retrieve the response in JSON
                     response => response.json()
                 ).then(data => {
-                    if(data.success)
+                    if(data.success) 
                         this.parentElement.remove()
-                    else
+                    
+                    else 
                         alert(data.error)
+                    
                 }).catch(e => alert(e))
             }
         })
