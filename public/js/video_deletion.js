@@ -15,7 +15,7 @@ window.onload = () => {
                 fetch(this.getAttribute("href"), {
                     method: "DELETE", 
                     headers: {
-                        'X-Requested-With': "XMLHttpRequest",
+                        "X-Requested-With": "XMLHttpRequest",
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({"_token": this.dataset.token})

@@ -1,7 +1,7 @@
 // this variable is the list in the dom, it's initiliazed when the document is ready
 var $collectionImage;
 // the link which we click on to add new items
-var $addNewImage = $("<a href="#" class="btn btn-info">Add new Image</a>");
+var $addNewImage = $('<a href="#" class="btn btn-info">Add new Image</a>');
 // when the page is loaded and ready
 $(document).ready(function () {
     // get the collectionHolder, initilize the var by getting the list;
@@ -47,9 +47,9 @@ function addNewFormImage() {
     $collectionImage.data("index", indexImage+1);
     // create the panel
     // this is the panel that will be appending to the collectionHolder
-    var $panelImage = $("<div class="panel panel-warning"><div class="panel-heading"></div></div>");
+    var $panelImage = $('<div class="panel panel-warning"><div class="panel-heading"></div></div>');
     // create the panel-body and append the form to it
-    var $panelBodyImage = $("<div class="panel-body"></div>").append(newFormImage);
+    var $panelBodyImage = $('<div class="panel-body"></div>').append(newFormImage);
     // append the body to the panel
     $panelImage.append($panelBodyImage);
     // append the removebutton to the new panel
@@ -65,9 +65,9 @@ function addNewFormImage() {
  */
 function addRemoveButtonImage ($panel) {
     // create remove button
-    var $removeButtonImage = $("<a href="#" class="btn btn-danger">Remove Image</a>");
+    var $removeButtonImage = $('<a href="#" class="btn btn-danger">Remove Image</a>');
     // appending the removebutton to the panel footer
-    var $panelFooterImage = $("<div class="panel-footer"></div>").append($removeButtonImage);
+    var $panelFooterImage = $('<div class="panel-footer"></div>').append($removeButtonImage);
     // handle the click event of the remove button
     $removeButtonImage.click(function (e) {
         e.preventDefault();

@@ -5,14 +5,14 @@ var $addNewItem = $('<a href="#" class="btn btn-info">Add new Video</a>');
 // when the page is loaded and ready
 $(document).ready(function () {
     // get the collectionHolder, initilize the var by getting the list;
-    $collectionHolder = $('#video_list');
+    $collectionHolder = $("#video_list");
     // append the add new item link to the collectionHolder
     $collectionHolder.append($addNewItem);
     // add an index property to the collectionHolder which helps track the count of forms we have in the list
-    $collectionHolder.data('index', $collectionHolder.find('.panel').length)
+    $collectionHolder.data("index", $collectionHolder.find(".panel").length)
     // finds all the panels in the list and foreach one of them we add a remove button to it
     // add remove button to existing items
-    $collectionHolder.find('.panel').each(function () {
+    $collectionHolder.find(".panel").each(function () {
         // $(this) means the current panel that we are at
         // which means we pass the panel to the addRemoveButton function
         // inside the function we create a footer and remove link and append them to the panel
@@ -35,16 +35,16 @@ $(document).ready(function () {
 function addNewForm() {
     // getting the prototype
     // the prototype is the form itself, plain html
-    var prototype = $collectionHolder.data('prototype');
+    var prototype = $collectionHolder.data("prototype");
     // get the index
     // this is the index we set when the document was ready, look above for more info
-    var index = $collectionHolder.data('index');
+    var index = $collectionHolder.data("index");
     // create the form
     var newForm = prototype;
     // replace the __name__ string in the html using a regular expression with the index value
     newForm = newForm.replace(/__name__/g, index);
     // incrementing the index data and setting it again to the collectionHolder
-    $collectionHolder.data('index', index+1);
+    $collectionHolder.data("index", index+1);
     // create the panel
     // this is the panel that will be appending to the collectionHolder
     var $panel = $('<div class="panel panel-warning"><div class="panel-heading"></div></div>');
@@ -73,7 +73,7 @@ function addRemoveButton ($panel) {
         e.preventDefault();
         // gets the parent of the button that we clicked on "the panel" and animates it
         // after the animation is done the element (the panel) is removed from the html
-        $(e.target).parents('.panel').slideUp(1000, function () {
+        $(e.target).parents(".panel").slideUp(1000, function () {
             $(this).remove();
         })
     });
