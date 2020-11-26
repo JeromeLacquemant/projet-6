@@ -23,10 +23,12 @@ window.onload = () => {
                     //We retrieve the response in JSON
                     response => response.json()
                 ).then(data => {
-                    if(data.success)
+                    if(data.success) {
                         this.parentElement.remove()
-                    else
+                    }
+                    else {
                         alert(data.error)
+                    }
                 }).catch(e => alert(e))
             }
         })
