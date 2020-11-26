@@ -40,6 +40,11 @@ class Figure
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+    
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $modifiedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="figures")
@@ -126,6 +131,18 @@ class Figure
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getModifiedAt(): ?\DateTimeInterface
+    {
+        return $this->modifiedAt;
+    }
+
+    public function setModifiedAt(\DateTimeInterface $modifiedAt): self
+    {
+        $this->modifiedAt = $modifiedAt;
 
         return $this;
     }

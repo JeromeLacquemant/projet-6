@@ -100,6 +100,7 @@ class BlogController extends AbstractController
             } 
             else 
             { 
+                $figure->setModifiedAt(new \DateTime());
                 $this->addFlash('message', 'Vous avez bien bien modifié la figure !');
             }
 

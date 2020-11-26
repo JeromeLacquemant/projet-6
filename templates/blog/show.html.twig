@@ -41,7 +41,13 @@
         <p>Auteur : {{ figure.figureuser.username }}</p>
        
         <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie {{ figure.categoryfigure.title }}</div>
-                </br>
+        
+        {%  if figure.modifiedAt %}
+            <div class="metadata">Modifié le {{ figure.modifiedAt|date('d/m/Y') }} à {{ figure.modifiedAt|date('H:i') }}</div>
+        {%  endif %}
+        
+        </br>
+        
         {{ figure.content|raw}}
         
         </div>
