@@ -15,7 +15,7 @@ window.onload = () => {
                 fetch(this.getAttribute("href"), {
                     method: "DELETE", 
                     headers: {
-                        'X-Requested-With': "XMLHttpRequest",
+                        "X-Requested-With": "XMLHttpRequest",
                         "Content-Type": "application/json"
                     },
                     body: JSON.stringify({"_token": this.dataset.token})
@@ -37,7 +37,7 @@ window.onload = () => {
 
 
 // Display the name of the file in the input for images
-$(document).on('change', '.custom-file-input', function () {
-    let fileName = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
-    $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
+$(document).on("change", ".custom-file-input", function () {
+    let fileName = $(this).val().replace(/\\/g, "/").replace(/.*\//, "");
+    $(this).parent(".custom-file").find(".custom-file-label").text(fileName);
 });
