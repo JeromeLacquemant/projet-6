@@ -50,13 +50,11 @@
                         </svg>
                     </a>
                 {% endif %}
-            
 
             <div>
             <p>Auteur : {{ figure.figureuser.username }}</p>
             </div>
    
-            
             <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie Figure</div>
             
         </div>
@@ -68,9 +66,13 @@
 </div>
 
  <div class="col-md-12 text-center">
+    <a href="#">
+        <i class="fas fa-arrow-circle-up float-right arrow-down"></i>
+    </a>
     <div class="button">
         <button id="showMore"><span>Load More</span></button>
     </div>
+
 </div> 
 
 </section>
