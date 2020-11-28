@@ -55,16 +55,17 @@
         <div class="container">
             <hr>
             <div class="">  
-                       
-                                {% for images in figure.images|slice(0,1) %}
-                                    <img class="col-lg-12 col-md-12 col-sm-12 py-3" src="{{ asset('public/uploads/figures/' ~ images.name) }}" alt="Image" >
-                                {% endfor %}
-            <hr>
+                {% for images in figure.images|slice(0,1) %}
+                    <img class="col-lg-12 col-md-12 col-sm-12 py-3" src="{{ asset('public/uploads/figures/' ~ images.name) }}" alt="Image" >
+                {% endfor %}
             </div>
+            <hr>
         </div>
+            
+        <section id="files">
         <div class="container">
-            <div class="row ">  
-                <div class="card box">
+            <div class="row">  
+                <div class="card">
                     <div class="card-shadow">
                         <div class="content">
                             <div class="img-container">
@@ -89,9 +90,16 @@
             </div>
             </div>
             <hr>
-        </div>     
+        </div>  
+        </section>
     </article>
 
+    <div class="col-md-12 text-center">
+       <div class="button">
+            <button id="showMoreFile"><span>Charger plus de fichiers</span></button>
+        </div>
+    </div> 
+            
     <div class="container">
     <section id="boxs">
         <h3>{{ figure.comments|length}} Commentaires : </h3>
@@ -118,7 +126,7 @@
 
         <div class="col-md-12 text-center">
             <div class="button">
-                <button id="showMore"><span>Load More</span></button>
+                <button id="showMore"><span>Charger plus de commentaires</span></button>
             </div>
         </div> 
         
