@@ -1,16 +1,12 @@
 body {
-    background : white;
+    background: white;
 }
 
 .container {
     padding: 50px 0;
 }
 
-.content {
-    
-}
-
-#boxs .box:nth-child(n+7){
+#boxs .box:nth-child(n+7) {
     display: none; 
 }
 
@@ -26,10 +22,10 @@ button {
 button:hover {
     transition: all 0.5s ease;
     border: 1px solid rgb(61, 180, 248);
-    box-shadow: 0 0 15px 5px rgba(40,170,200,1);
+    box-shadow: 0 0 15px 5px rgba(40, 170, 200, 1);
 }
 
-.first-image{
+.first-image {
     min-height: 500px;
     height: 100vh;
     background-size:cover;
@@ -39,10 +35,11 @@ button:hover {
 }
 
 .float-right {
-    float: right!important;
+    float: right !important;
 }
 
-.arrow-down, .arrow-up {
+.arrow-down,
+.arrow-up {
     position: relative;
     font-size: 3em;
 }
@@ -54,30 +51,30 @@ button:hover {
 }
 
 h2{
-    font-size:1.4rem;
+    font-size: 1.4rem;
 }
 
-embed, iframe, object
-{
-max-width: 100%;
- width: 100%;
-	
+embed, 
+iframe, 
+object {
+    max-width: 100%;
+    width: 100%;	
 }
 
-legend{
+legend {
     display:none;
 }
 
-.container{
+.container {
     padding: 20px;
 }
 
-.card{
+.card {
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-.img-show{
+.img-show {
     width: 100%;
     max-width: 100%;
     height: auto;
@@ -95,12 +92,12 @@ img-create {
     height: 100%
 }
 
-.error-img{
+.error-img {
     max-width: 100%;
     height: auto;
 }
 
-.stylebutton{
+.stylebutton {
 display: inline-block;
     font-weight: 400;
     color: #212529;
@@ -117,7 +114,7 @@ display: inline-block;
     border-color: red;
 }
 
-.daniel{
+.daniel {
     margin: auto;
     display: block;
 }
