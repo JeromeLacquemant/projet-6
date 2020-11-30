@@ -98,11 +98,13 @@
         </section>
     </article>
 
+    {% if figure.videos is not empty and figure.images is not empty%}
     <div class="col-md-12 text-center">
        <div class="button">
             <button id="showMoreFile"><span>Charger plus de fichiers</span></button>
         </div>
     </div> 
+    {% endif %}
             
     <div class="container">
     <section id="boxs">
@@ -127,12 +129,13 @@
             </div>
         {% endfor %}
 
-
+        {% if figure.comments is not empty%}
         <div class="col-md-12 text-center">
             <div class="button">
                 <button id="showMore"><span>Charger plus de commentaires</span></button>
             </div>
         </div> 
+        {% endif %}
         
         {% if app.user %}
         {{ form_start(commentForm) }}
