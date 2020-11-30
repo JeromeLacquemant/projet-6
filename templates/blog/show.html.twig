@@ -73,7 +73,7 @@
                     <div class="card-shadow">
                         <div class="content">
                             <div class="img-container">
-                                {% for images in figure.images %}
+                                {% for images in figure.images|slice(1) %}
                                     <img class="col-lg-3 col-md-3 col-sm-12 py-3" src="{{ asset('public/uploads/figures/' ~ images.name) }}" alt="Image" width="150" class="lazy img-fluid">
                                 {% endfor %}
                             </div>
@@ -98,7 +98,7 @@
         </section>
     </article>
 
-    {% if figure.videos is not empty and figure.images is not empty%}
+    {% if figure.videos is not empty or figure.images is not empty%}
     <div class="col-md-12 text-center">
        <div class="button">
             <button id="showMoreFile"><span>Charger plus de fichiers</span></button>
