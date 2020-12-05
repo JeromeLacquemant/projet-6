@@ -31,7 +31,7 @@ class BlogController extends AbstractController
      * @Route("/", name="blog")
      */
     public function index(FigureRepository $repo) {
-        $figures = $repo->findAll();
+        $figures = $repo->findBy([], ['createdAt' => 'desc']);
 
         return $this->render('blog/index.html.twig', [
             'controller_name' => 'BlogController',
