@@ -37,7 +37,7 @@
                 {% endfor %}
             </div>
             
-            <h2><a href="{{ path('blog_show', {'id': figure.id}) }}">{{ figure.name }}</a></h2>
+            <h2><a href="{{ path('blog_show', {'slug': figure.slug}) }}">{{ figure.name }}</a></h2>
                          {% if app.user %} 
                     <a href="{{ path('blog_edit', {'id': figure.id}) }}" class="btn btn-success" onclick="return window.confirm(`Êtes vous sur de vouloir modifier cet article ?`)">
                         <svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="black" xmlns="http://www.w3.org/2000/svg">

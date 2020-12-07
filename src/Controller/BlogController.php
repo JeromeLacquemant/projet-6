@@ -107,7 +107,7 @@ class BlogController extends AbstractController
             $manager->persist($figure);
             $manager->flush();
 
-            return $this->redirectToRoute('blog_show', ['id' => $figure->getId()]);
+            return $this->redirectToRoute('blog_show', ['slug' => $figure->getSlug()]);
         }
 
         return $this->render('blog/create.html.twig', [
@@ -118,7 +118,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("blog/{id}", name="blog_show")
+     * @Route("blog/{slug}", name="blog_show")
      */
     public function show(Figure $figure, Request $request, EntityManagerInterface $manager) {
         $comment = new Comment();
@@ -136,13 +136,15 @@ class BlogController extends AbstractController
             $manager->flush();
 
             return $this->redirectToRoute('blog_show', [
-                'id' => $figure->getId()
+                'slug' => $figure->getSlug()
             ]);
         }
 
         return $this->render('blog/show.html.twig', [
             'figure' => $figure,
             'commentForm' => $form->createView(),
+            'slug' => $figure->getSlug()
+            
         ]);
     }
 
