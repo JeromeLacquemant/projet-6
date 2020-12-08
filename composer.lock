@@ -1204,15 +1204,8 @@
                 "database",
                 "orm"
             ],
-<<<<<<< HEAD
-            "support": {
-                "issues": "https://github.com/doctrine/orm/issues",
-                "source": "https://github.com/doctrine/orm/tree/2.7.5"
-            },
-            "time": "2020-12-03T08:52:14+00:00"
-=======
+
             "time": "2020-10-10T17:11:26+00:00"
->>>>>>> 6f43a3ca419b818c85e5a1291cb0f3255c2bb446
         },
         {
             "name": "doctrine/persistence",
