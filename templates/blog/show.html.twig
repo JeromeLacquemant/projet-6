@@ -47,7 +47,7 @@
         {%  endif %}
         
         </br>
-        
+        <hr>
         {{ figure.content|raw}}
         
         </div>
@@ -98,7 +98,7 @@
         </section>
     </article>
 
-    {% if figure.videos is not empty or figure.images is not empty%}
+    {% if figure.videos is not empty or figure.images|length > 1 %}
     <div class="col-md-12 text-center">
        <div class="button">
             <button id="showMoreFile"><span>Charger plus de fichiers</span></button>
@@ -108,7 +108,12 @@
             
     <div class="container">
     <section id="boxs">
-        <h3>{{ figure.comments|length}} Commentaires : </h3>
+        {% if figure.comments|length > 1 %}
+            <h3>{{ figure.comments|length}} Commentaires : </h3>
+        {%  else %}
+            <h3>{{ figure.comments|length}} Commentaire : </h3>
+        {% endif %}
+        
         {% for comment in figure.comments %}
             <div class="box card">
                 <div class="row">
@@ -139,7 +144,7 @@
         
         {% if app.user %}
         {{ form_start(commentForm) }}
-        {{ form_row(commentForm.content, {'attr': {'placeholder': "Votre commentaire"}}) }}
+        {{ form_row(commentForm.content, {'attr': {'placeholder': "Votre commentaire"}, 'label': "La parole est à vous :"}) }}
 
         <button type="submit" class="btn btn-success">Commenter !</button>
         {{ form_end(commentForm) }}

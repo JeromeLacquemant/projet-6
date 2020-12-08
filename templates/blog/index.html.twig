@@ -29,7 +29,7 @@
             <div class="content">
             <div class="img-container">
                 {% if figure.images is empty %}
-                    <img src="{{ asset('public/uploads/figures/basic-image.jpg') }}" class="col-lg-12 col-md-12 col-sm-12 py-3" alt="Photo of the snow">
+                    <img src="{{ asset('public/uploads/figures/basic-image.jpg') }}" alt="Image" width="150" class="lazy img-fluid" alt="Photo of the snow">
                 {% endif %}
                 
                 {% for images in figure.images|slice(0,1) %}
@@ -57,7 +57,7 @@
             <p>Auteur : {{ figure.figureuser.username }}</p>
             </div>
    
-            <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie Figure</div>
+            <div class="metadata">Ecrit le {{ figure.createdAt|date('d/m/Y') }} à {{ figure.createdAt|date('H:i') }} dans la catégorie {{ figure.categoryfigure.title }}</div>
             
         </div>
         </div>
