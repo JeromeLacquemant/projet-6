@@ -17,8 +17,7 @@ You should follow step by step the instruction listed above to install the websi
 - Install the dependencies composer install
 - Create the Database php bin/console do:da:cr
 - Create the tables php bin/console do:sc:up --force
-- Use the fixtures to insert content in Database => php bin/console do:fi:lo --append
-- Start the server php bin/console se:ru
+- Start the server symfony serve
 
 
 Github repository :
