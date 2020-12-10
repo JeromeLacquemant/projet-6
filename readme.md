@@ -14,10 +14,12 @@ You should follow step by step the instruction listed above to install the websi
 
 - Clone or download the website in the folder of your local server
 - Use the empty file .env (I used a .env.local to protect my logins) and insert your credentials for Database and SMTP
-- Install the dependencies composer install
-- Create the Database php bin/console do:da:cr
-- Create the tables php bin/console do:sc:up --force
-- Start the server symfony serve
+- Install the dependencies -> composer install
+- Create the Database -> php bin/console do:da:cr
+- Load the tables -> php bin/console doctrine:migrations:migrate
+- Load the fixtures -> php bin/console doctrine:fixtures:load
+- Start the server -> symfony serve
+- Enjoy !
 
 
 Github repository :
