@@ -191,7 +191,6 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
 
         if(!$user){
-            $this->addFlash('danger', 'Token inconnu');
             return $this->redirectToRoute('security_login');
         }
 

@@ -1,5 +1,11 @@
+html {
+    min-height: 100%;
+    position: relative;
+}
+
 body {
     background: white;
+    height: 100%;
 }
 
 .container {
@@ -119,6 +125,12 @@ display: inline-block;
     display: block;
 }
 
-.video-button{
+.video-button {
     padding-left: 0;
+}
+
+.footer-copyright {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

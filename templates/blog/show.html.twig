@@ -134,7 +134,7 @@
             </div>
         {% endfor %}
 
-        {% if figure.comments is not empty%}
+        {% if figure.comments|length > 1%}
         <div class="col-md-12 text-center">
             <div class="button">
                 <button id="showMore"><span>Charger plus de commentaires</span></button>
